@@ -50,7 +50,8 @@ class Organization < ApplicationRecord
                                   energy_utilities: :energy_utilities, # Energy and utilities
                                   finance_insurance: :finance_insurance, # Finance and insurance
                                   government_public_sector: :government_public_sector, # Government and public sector
-                                  healthcare_pharmaceuticals: :healthcare_pharmaceuticals, # Healthcare and pharmaceuticals
+                                  # Healthcare and pharmaceuticals
+                                  healthcare_pharmaceuticals: :healthcare_pharmaceuticals,
                                   it_telecommunications: :it_telecommunications, # IT and telecommunications
                                   manufacturing_engineering: :manufacturing_engineering, # Manufacturing and engineering
                                   media_entertainment: :media_entertainment, # Media and entertainment
