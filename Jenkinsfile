@@ -37,7 +37,7 @@ pipeline {
                             gem update bundler
                             bundle install
                             echo "$TEST_CREDENTIALS" > config/credentials/ci-cd.key
-                            gem install mailcatcher
+                            gem install mailcatcher -v 0.9.0.beta2
                             mailcatcher
                             rm -Rf ./coverage
                             RAILS_ENV=ci-cd bundle exec rake db:create
