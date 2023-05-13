@@ -90,3 +90,7 @@ production:
 staging:
   <<: *default
   database: soclhub_production
+
+ci-cd:
+  <<: *default
+  database: sharehub_ci_cd
