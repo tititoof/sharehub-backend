@@ -98,7 +98,7 @@ class Organization < ApplicationRecord
   # Address
   validates :address, presence: { message: :required }
   validates :address,
-            length: { in: 8..100, too_long: :tooLong,
+            length: { in: 4..100, too_long: :tooLong,
                       too_short: :tooShort }
 
   # Annual turnover
@@ -120,7 +120,7 @@ class Organization < ApplicationRecord
   # Name
   validates :name, presence: { message: :required }
   validates :name,
-            length: { in: 8..60, too_long: :tooLong,
+            length: { in: 4..60, too_long: :tooLong,
                       too_short: :tooShort }
 
   # Number of employees
