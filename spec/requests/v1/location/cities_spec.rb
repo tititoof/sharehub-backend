@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "V1::CurrentUsers", type: :request do
-  
-  describe "GET /index" do
+RSpec.describe "V1::Cities", type: :request do
+  describe "GET /cities" do
     let (:user) { create_user }
     let (:login_url) { '/login' }
+    let (:cities_url) { '/v1/location/cities' }
 
     context 'When logged in' do
       before do
@@ -19,18 +19,22 @@ RSpec.describe "V1::CurrentUsers", type: :request do
         expect(response).to have_http_status(:success)
       end
 
-      it 'returns the user email' do
-        get "/v1/current_user/index", headers: {
+      it 'returns the city serializer' do
+        city = FactoryBot.create(:location_city)
+
+        get "#{cities_url}/#{city.state_id}", headers: {
           'Authorization': response.headers['Authorization']
         }
 
-        expect(json['data']).to have_jsonapi_attributes(:createdAt, :id, :email).exactly
+        expect(json['data'][0]).to have_jsonapi_attributes(:id, :name, :latitude, :longitude).exactly
       end
     end
 
-    context 'When not logged in' do
+    context 'When logged in' do
       it 'returns 401' do
-        get "/v1/current_user/index"
+        city = FactoryBot.create(:location_city)
+
+        get "#{cities_url}/#{city.state_id}"
 
         expect(response.status).to eq(401)
       end

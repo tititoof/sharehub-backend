@@ -20,9 +20,13 @@
 #  index_users_on_jti                   (jti) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
+
+# Returns the JSON Profile object.
+#
+# set_key_transform :camel_lower - "some_key" => "someKey"
 class UserSerializer
   include JSONAPI::Serializer
-  # "some_key" => "someKey"
+
   set_key_transform :camel_lower
 
   attributes :id, :email, :created_at
