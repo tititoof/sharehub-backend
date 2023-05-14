@@ -182,7 +182,8 @@ RSpec.describe "V1::Organizations", type: :request do
             registration_number: Faker::Bank.account_number,
             website: Faker::Internet.url,
             city_id: city.id,
-            country_id: country.id
+            country_id: country.id,
+            admin_id: admin.id
           } }, headers: {
             'Authorization': response.headers['Authorization']
           }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_14_055144) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_14_062701) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -66,6 +66,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_14_055144) do
     t.uuid "city_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "admin_id", null: false
+    t.index ["admin_id"], name: "index_organizations_on_admin_id"
     t.index ["city_id"], name: "index_organizations_on_city_id"
     t.index ["country_id"], name: "index_organizations_on_country_id"
   end
@@ -107,6 +109,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_14_055144) do
   add_foreign_key "location_states", "location_countries", column: "country_id"
   add_foreign_key "organizations", "location_cities", column: "city_id"
   add_foreign_key "organizations", "location_countries", column: "country_id"
+  add_foreign_key "organizations", "users", column: "admin_id"
   add_foreign_key "users_profiles", "location_cities", column: "city_id"
   add_foreign_key "users_profiles", "users"
 end

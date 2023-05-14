@@ -34,17 +34,18 @@ module V1
       end
 
       def call
-        city         = ::Location::City.find(@properties[:city_id])
-        country      = ::Location::Country.find(@properties[:country_id])
+        city      = ::Location::City.find(@properties[:city_id])
+        country   = ::Location::Country.find(@properties[:country_id])
+        admin     = User.find(@properties[:admin_id])
 
-        update(city, country)
+        update(city, country, admin)
 
         { success: true, payload: @organization }
       rescue ActiveRecord::RecordInvalid => e
         { success: false, errors: e.record.errors.as_json, status: :unprocessable_entity }
       end
 
-      def update(city, country)
+      def update(city, country, admin)
         @organization.update!(activity_description: @properties[:activity_description],
                               activity_sector: @properties[:activity_sector],
                               address: @properties[:address], borned_at: @properties[:borned_at],
@@ -54,7 +55,7 @@ module V1
                               name: @properties[:name], number_of_employees: @properties[:number_of_employees],
                               phone_number: @properties[:phone_number], region: @properties[:region],
                               registration_number: @properties[:registration_number],
-                              website: @properties[:website], city:, country:)
+                              website: @properties[:website], city:, country:, admin:)
       end
     end
   end

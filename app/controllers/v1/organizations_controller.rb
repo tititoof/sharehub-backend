@@ -60,7 +60,7 @@ module V1
       params.required(:organization).permit(:activity_description, :activity_sector, :address,
                                             :annual_turnover, :borned_at, :email_address, :kind, :legal_status,
                                             :name, :number_of_employees, :phone_number, :registration_number,
-                                            :website, :city_id, :country_id)
+                                            :website, :city_id, :country_id, :admin_id)
     end
   end
 end

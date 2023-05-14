@@ -19,16 +19,19 @@
 #  website              :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  admin_id             :uuid             not null
 #  city_id              :uuid             not null
 #  country_id           :uuid             not null
 #
 # Indexes
 #
+#  index_organizations_on_admin_id    (admin_id)
 #  index_organizations_on_city_id     (city_id)
 #  index_organizations_on_country_id  (country_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (admin_id => users.id)
 #  fk_rails_...  (city_id => location_cities.id)
 #  fk_rails_...  (country_id => location_countries.id)
 #
