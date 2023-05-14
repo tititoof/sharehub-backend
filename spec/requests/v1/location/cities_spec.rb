@@ -11,14 +11,6 @@ RSpec.describe "V1::Cities", type: :request do
         login_with_api(user)
       end
 
-      it 'returns a token' do
-        expect(response.headers['Authorization']).to be_present
-      end
-
-      it "returns http success" do
-        expect(response).to have_http_status(:success)
-      end
-
       it 'returns the city serializer' do
         city = FactoryBot.create(:location_city)
 
@@ -30,7 +22,7 @@ RSpec.describe "V1::Cities", type: :request do
       end
     end
 
-    context 'When logged in' do
+    context 'When not logged in' do
       it 'returns 401' do
         city = FactoryBot.create(:location_city)
 

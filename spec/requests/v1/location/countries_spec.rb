@@ -11,14 +11,6 @@ RSpec.describe "V1::Countries", type: :request do
         login_with_api(user)
       end
 
-      it 'returns a token' do
-        expect(response.headers['Authorization']).to be_present
-      end
-
-      it "returns http success" do
-        expect(response).to have_http_status(:success)
-      end
-
       it 'returns the country serializer' do
         country = FactoryBot.create(:location_country)
 
@@ -30,7 +22,7 @@ RSpec.describe "V1::Countries", type: :request do
       end
     end
 
-    context 'When logged in' do
+    context 'When not logged in' do
       it 'returns 401' do
         get countries_url
 

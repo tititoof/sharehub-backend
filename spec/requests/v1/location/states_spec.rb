@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "V1::Country", type: :request do
+RSpec.describe "V1::State", type: :request do
   describe "GET /states" do
     let (:user) { create_user }
     let (:login_url) { '/login' }
@@ -9,14 +9,6 @@ RSpec.describe "V1::Country", type: :request do
     context 'When logged in' do
       before do
         login_with_api(user)
-      end
-
-      it 'returns a token' do
-        expect(response.headers['Authorization']).to be_present
-      end
-
-      it "returns http success" do
-        expect(response).to have_http_status(:success)
       end
 
       it 'returns the state serializer' do
@@ -30,7 +22,7 @@ RSpec.describe "V1::Country", type: :request do
       end
     end
 
-    context 'When logged in' do
+    context 'When not logged in' do
       it 'returns 401' do
         state = FactoryBot.create(:location_state)
 

@@ -21,7 +21,7 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
-# Returns the JSON Profile object.
+# Returns the JSON User object.
 #
 # set_key_transform :camel_lower - "some_key" => "someKey"
 class UserSerializer

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: organizations
@@ -32,23 +34,16 @@
 #  fk_rails_...  (city_id => location_cities.id)
 #  fk_rails_...  (country_id => location_countries.id)
 #
-FactoryBot.define do
-  factory :organization do
-    name { Faker::Company.name }
-    kind { Organization::kind_options.keys.sample }
-    borned_at { Faker::Date.between(from: '2014-09-23', to: '2014-09-25') }
-    address { Faker::Address.full_address }
-    phone_number { Faker::PhoneNumber.phone_number_with_country_code }
-    email_address { Faker::Internet.email }
-    website { Faker::Internet.url }
-    activity_description { Faker::Books::Lovecraft.paragraph }
-    activity_sector { Organization::activity_sector_options.keys.sample }
-    annual_turnover { rand(100.0..5000.0) }
-    number_of_employees { rand(1..500) }
-    legal_status { Organization::legal_status_options.keys.sample }
-    registration_number { Faker::Bank.account_number }
-    region { "MyString" }
-    country { FactoryBot.create(:location_country) }
-    city { FactoryBot.create(:location_city) }
-  end
+
+# Returns the JSON Organization object.
+#
+# set_key_transform :camel_lower - "some_key" => "someKey"
+class OrganizationSerializer
+  include JSONAPI::Serializer
+
+  set_key_transform :camel_lower
+
+  attributes :id, :activity_description, :activity_sector, :address, :annual_turnover,
+             :borned_at, :email_address, :kind, :legal_status, :name, :number_of_employees,
+             :phone_number, :registration_number, :website, :city_id, :country_id
 end

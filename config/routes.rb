@@ -17,12 +17,19 @@ Rails.application.routes.draw do
     # /location/
     namespace :location do
       # Countries
-      get 'countries',          to:'country#index'
+      get 'countries',          to: 'country#index'
       # States
       get 'states/:country_id', to: 'state#index'
       # Cities
       get 'cities/:state_id',   to: 'city#index'
     end
+
+    # /organizations
+    get     'organizations',                  to: 'organizations#index'
+    get     'organizations/:organization_id', to: 'organizations#show'
+    post    'organizations',                  to: 'organizations#create'
+    put     'organizations/:organization_id', to: 'organizations#update'
+    delete  'organizations/:organization_id', to: 'organizations#destroy'
   end
   # Defines the root path route ("/")
   # root "articles#index"

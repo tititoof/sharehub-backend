@@ -19,7 +19,7 @@ RSpec.describe "V1::CurrentUsers", type: :request do
         expect(response).to have_http_status(:success)
       end
 
-      it 'returns the user email' do
+      it 'returns the user email, createdAt & id' do
         get "/v1/current_user/index", headers: {
           'Authorization': response.headers['Authorization']
         }
