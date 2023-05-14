@@ -37,7 +37,7 @@ module Users
 
     set_key_transform :camel_lower
 
-    attributes :id, :address, :date_of_birth, :email, :first_name, :last_name, :nickname, :phone, 
+    attributes :id, :address, :date_of_birth, :email, :first_name, :last_name, :nickname, :phone,
                :city_id, :user_id
   end
 end

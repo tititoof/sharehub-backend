@@ -27,7 +27,7 @@ module V1
 
         def call
           V1::Users::Profiles::UpdateService.call(@user, @properties) unless @user.profile.nil?
-          
+
           V1::Users::Profiles::CreateService.call(@user, @properties) if @user.profile.nil?
 
           { success: true, payload: @user.profile }

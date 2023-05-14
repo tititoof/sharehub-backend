@@ -27,11 +27,11 @@ module V1
 
         def call
           city = ::Location::City.find(@properties[:city_id])
-          
-          ::Users::Profile.create!(user: @user, address: @properties[:address], date_of_birth: @properties[:date_of_birth], 
-                          email: @properties[:email], first_name: @properties[:first_name],
-                          last_name: @properties[:last_name], nickname: @properties[:nickname], 
-                          phone: @properties[:phone], city:)
+
+          ::Users::Profile.create!(user: @user, address: @properties[:address], date_of_birth: @properties[:date_of_birth],
+                                   email: @properties[:email], first_name: @properties[:first_name],
+                                   last_name: @properties[:last_name], nickname: @properties[:nickname],
+                                   phone: @properties[:phone], city:)
 
           { success: true, payload: @user.profile }
         rescue ActiveRecord::RecordInvalid => e

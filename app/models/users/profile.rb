@@ -35,7 +35,7 @@ module Users
     # City - belongs to
     belongs_to :city, class_name: 'Location::City'
     # User - belongs to
-    belongs_to :user,  class_name: 'User'
+    belongs_to :user, class_name: 'User'
 
     # --- Callbacks ---
     before_save :normalize_phone
