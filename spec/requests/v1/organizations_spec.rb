@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "V1::Organizations", type: :request do
+  let (:admin) { create_admin }
   let (:user) { create_user }
   let (:login_url) { '/login' }
   let (:organizations_url) { '/v1/organizations' }
@@ -9,7 +10,7 @@ RSpec.describe "V1::Organizations", type: :request do
 
     context 'When logged in' do
       before do
-        login_with_api(user)
+        login_with_api(admin)
       end
 
       it 'returns organizations serialized' do
@@ -35,12 +36,24 @@ RSpec.describe "V1::Organizations", type: :request do
         expect(response.status).to eq(401)
       end
     end
+
+    context 'When not admin' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'not authorize' do
+        get organizations_url
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   describe "GET /:organization_id" do
     context 'When logged in' do
       before do
-        login_with_api(user)
+        login_with_api(admin)
       end
 
       it 'returns organizations serialized' do
@@ -66,12 +79,24 @@ RSpec.describe "V1::Organizations", type: :request do
         expect(response.status).to eq(401)
       end
     end
+
+    context 'When not admin' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'not authorize' do
+        get organizations_url
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   describe "POST /" do
     context 'When logged in' do
       before do
-        login_with_api(user)
+        login_with_api(admin)
       end
 
       it 'returns organizations serialized' do
@@ -116,12 +141,24 @@ RSpec.describe "V1::Organizations", type: :request do
         expect(response.status).to eq(401)
       end
     end
+
+    context 'When not admin' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'not authorize' do
+        get organizations_url
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   describe "PUT /:organization_id" do
     context 'When logged in' do
       before do
-        login_with_api(user)
+        login_with_api(admin)
       end
 
       it 'returns organizations serialized' do
@@ -166,12 +203,24 @@ RSpec.describe "V1::Organizations", type: :request do
         expect(response.status).to eq(401)
       end
     end
+
+    context 'When not admin' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'not authorize' do
+        get organizations_url
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   describe "DELETE /:organization_id" do
     context 'When logged in' do
       before do
-        login_with_api(user)
+        login_with_api(admin)
       end
 
       it 'returns organizations serialized' do
@@ -185,8 +234,34 @@ RSpec.describe "V1::Organizations", type: :request do
       end
     end
 
+    context 'when no organization' do
+      before do
+        login_with_api(admin)
+      end
+
+      it 'returns an error' do
+        delete "#{organizations_url}/12345-4", headers: {
+            'Authorization': response.headers['Authorization']
+          }
+
+        expect(response.status).to eq(422)
+      end
+    end
+
     context 'When not logged in' do
       it 'returns 401' do
+        get organizations_url
+
+        expect(response.status).to eq(401)
+      end
+    end
+
+    context 'When not admin' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'not authorize' do
         get organizations_url
 
         expect(response.status).to eq(401)

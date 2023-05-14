@@ -24,7 +24,7 @@ RSpec.describe "V1::CurrentUsers", type: :request do
           'Authorization': response.headers['Authorization']
         }
 
-        expect(json['data']).to have_jsonapi_attributes(:createdAt, :id, :email).exactly
+        expect(json['data']).to have_jsonapi_attributes(:createdAt, :id, :email, :isAdmin).exactly
       end
     end
 

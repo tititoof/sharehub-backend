@@ -7,6 +7,7 @@
 #  id                     :uuid             not null, primary key
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
+#  is_admin               :boolean          default(FALSE)
 #  jti                    :string           not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -29,5 +30,5 @@ class UserSerializer
 
   set_key_transform :camel_lower
 
-  attributes :id, :email, :created_at
+  attributes :id, :email, :created_at, :is_admin
 end

@@ -18,8 +18,6 @@ module V1
         @organization.destroy!
 
         { success: true, payload: { done: :ok } }
-      rescue ActiveRecord::RecordInvalid => e
-        { success: false, errors: e.record.errors.as_json, status: :unprocessable_entity }
       end
     end
   end

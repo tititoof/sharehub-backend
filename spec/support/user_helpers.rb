@@ -9,6 +9,12 @@ module UserHelpers
                       password: Faker::Internet.password)
   end
 
+  def create_admin
+    FactoryBot.create(:user, :admin, 
+                      email: Faker::Internet.email, 
+                      password: Faker::Internet.password)
+  end
+
   def build_user
     FactoryBot.build(:user, 
                      email: Faker::Internet.email, 
