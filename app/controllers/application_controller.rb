@@ -5,7 +5,7 @@
 class ApplicationController < ActionController::API
   # Authorization
   include Pundit::Authorization
-  
+
   # Include the ApiResponder module for JSON responses
   include ApiResponder
 

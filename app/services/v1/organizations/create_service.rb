@@ -52,7 +52,7 @@ module V1
                              name: @properties[:name], number_of_employees: @properties[:number_of_employees],
                              phone_number: @properties[:phone_number], region: @properties[:region],
                              registration_number: @properties[:registration_number],
-                             website: @properties[:website], city: city, country: country)
+                             website: @properties[:website], city:, country:)
       end
     end
   end
