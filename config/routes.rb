@@ -30,6 +30,15 @@ Rails.application.routes.draw do
     post    'organizations',                  to: 'organizations#create'
     put     'organizations/:organization_id', to: 'organizations#update'
     delete  'organizations/:organization_id', to: 'organizations#destroy'
+
+    # /users
+    namespace :users do
+      # /profile
+      get   '/profiles',              to: 'profiles#index'
+      get   '/profiles/list',         to: 'profiles#list'
+      get   '/profiles/:profile_id',  to: 'profiles#show'
+      post  '/profiles',              to: 'profiles#save'
+    end
   end
   # Defines the root path route ("/")
   # root "articles#index"

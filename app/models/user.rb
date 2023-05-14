@@ -31,5 +31,5 @@ class User < ApplicationRecord
 
   # --- Relations ---
   # Profile - has one - destroy profile on destroy user
-  has_one :profile, dependent: :destroy
+  has_one :profile, class_name: 'Users::Profile', dependent: :destroy
 end

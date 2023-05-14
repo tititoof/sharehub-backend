@@ -6,8 +6,11 @@ RSpec.describe "V1::Organizations", type: :request do
   let (:login_url) { '/login' }
   let (:organizations_url) { '/v1/organizations' }
   
+  # ------------------
+  # index
+  # ------------------
   describe "GET /" do
-
+    # User logged & admin
     context 'When logged in' do
       before do
         login_with_api(admin)
@@ -29,6 +32,7 @@ RSpec.describe "V1::Organizations", type: :request do
       end
     end
 
+    # User not logged
     context 'When not logged in' do
       it 'returns 401' do
         get organizations_url
@@ -37,6 +41,7 @@ RSpec.describe "V1::Organizations", type: :request do
       end
     end
 
+    # User not admin
     context 'When not admin' do
       before do
         login_with_api(user)
