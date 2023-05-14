@@ -16,7 +16,8 @@ module V1
       #     - phone: the user's phone number
       #     - city_id: the ID of the city where the user lives
       #
-      # Returns the created or updated Profile object if the record was saved successfully, or error if validation failed.
+      # Returns the created or updated Profile object if the record was saved successfully, or error if validation
+      # failed.
       class SaveProcedure < ApplicationCallable
         attr_reader :user, :properties
 

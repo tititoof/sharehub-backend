@@ -16,7 +16,8 @@ module V1
       #     - phone: the user's phone number
       #     - city_id: the ID of the city where the user lives
       #
-      # Returns the created or updated Profile object if the record was saved successfully, or error if validation failed.
+      # Returns the created or updated Profile object if the record was saved successfully, or error if validation
+      # failed.
       class CreateService < ApplicationCallable
         attr_reader :user, :properties
 
@@ -28,7 +29,8 @@ module V1
         def call
           city = ::Location::City.find(@properties[:city_id])
 
-          ::Users::Profile.create!(user: @user, address: @properties[:address], date_of_birth: @properties[:date_of_birth],
+          ::Users::Profile.create!(user: @user, address: @properties[:address],
+                                   date_of_birth: @properties[:date_of_birth],
                                    email: @properties[:email], first_name: @properties[:first_name],
                                    last_name: @properties[:last_name], nickname: @properties[:nickname],
                                    phone: @properties[:phone], city:)
