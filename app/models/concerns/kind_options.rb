@@ -22,6 +22,7 @@ module KindOptions
       cooperative: :cooperative, # Coopérative
       non_profit_organization: :non_profit_organization, # Organisme sans but lucratif (OSBL)
       public_administration: :public_administration, # Administration publique
-      other_kind: :other_kind }
+      other_kind: :other_kind
+    }
   end
 end

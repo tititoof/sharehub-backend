@@ -39,6 +39,5 @@ module Location
 
     # Name
     validates :name, presence: true
-
   end
 end

@@ -12,7 +12,7 @@ module GroupKindOptions
   included do
     enum kind_options: {
       organization: :organization,
-      user: :user 
+      user: :user
     }
   end
 end

@@ -25,6 +25,7 @@ module ActivitySectorOptions
       retail_consumer_goods: :retail_consumer_goods, # Retail and consumer goods
       transportation_logistics: :transportation_logistics, # Transportation and logistics
       travel_hospitality: :travel_hospitality, # Travel and hospitality
-      other_activity: :other_activity } # Other
+      other_activity: :other_activity
+    } # Other
   end
 end
