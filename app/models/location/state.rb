@@ -22,16 +22,23 @@
 module Location
   # This class represents a state or province in a country.
   class State < ApplicationRecord
+    # ----------------------------------
     # --- Relations ---
+    # ----------------------------------
     # Country - belongs to
     belongs_to :country, class_name: 'Location::Country'
+
     # Cities - has many - destroy cities on destroy country
     has_many :cities, class_name: 'Location::City', dependent: :destroy
 
+    # ----------------------------------
     # --- Validations ---
-    # Name
-    validates :name, presence: true
+    # ----------------------------------
     # Code
     validates :code, presence: true
+
+    # Name
+    validates :name, presence: true
+
   end
 end

@@ -29,7 +29,26 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
 
+  # ----------------------------------
   # --- Relations ---
+  # ----------------------------------
   # Profile - has one - destroy profile on destroy user
   has_one :profile, class_name: 'Users::Profile', dependent: :destroy
+
+  # Memberships (Organization - Group)
+  has_many :memberships, as: :member, class_name: 'Users::Membership', dependent: :destroy
+
+  # Group - has_many
+  has_many :groups,
+           through: :memberships,
+           source: :joinable,
+           source_type: 'Group',
+           class_name: 'Group'
+
+  # Organization - has_many
+  has_many :organizations,
+           through: :memberships,
+           source: :joinable,
+           source_type: 'Organization',
+           class_name: 'Organization'
 end

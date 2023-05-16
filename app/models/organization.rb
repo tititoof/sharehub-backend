@@ -30,6 +30,7 @@
 #  index_organizations_on_admin_id    (admin_id)
 #  index_organizations_on_city_id     (city_id)
 #  index_organizations_on_country_id  (country_id)
+#  index_organizations_on_name        (name) UNIQUE
 #
 # Foreign Keys
 #
@@ -38,60 +39,48 @@
 #  fk_rails_...  (country_id => location_countries.id)
 #
 class Organization < ApplicationRecord
+  # ----------------------------------
   # --- Enums ---
-  enum legal_status_options: {
-    entreprise: :entreprise,
-    association_status: :association_status,
-    cooperative_status: :cooperative_status,
-    ngo: :ngo,
-    union: :union,
-    foundation: :foundation,
-    other_status: :other_status
-  }
+  # ----------------------------------
+  include LegalStatusOptions
 
-  enum activity_sector_options: { agriculture_forestry: :agriculture_forestry, # Agriculture and forestry
-                                  energy_utilities: :energy_utilities, # Energy and utilities
-                                  finance_insurance: :finance_insurance, # Finance and insurance
-                                  government_public_sector: :government_public_sector, # Government and public sector
-                                  # Healthcare and pharmaceuticals
-                                  healthcare_pharmaceuticals: :healthcare_pharmaceuticals,
-                                  it_telecommunications: :it_telecommunications, # IT and telecommunications
-                                  manufacturing_engineering: :manufacturing_engineering, # Manufacturing and engineering
-                                  media_entertainment: :media_entertainment, # Media and entertainment
-                                  nonprofit_charity: :nonprofit_charity, # Nonprofit and charity
-                                  real_estate_construction: :real_estate_construction, # Real estate and construction
-                                  retail_consumer_goods: :retail_consumer_goods, # Retail and consumer goods
-                                  transportation_logistics: :transportation_logistics, # Transportation and logistics
-                                  travel_hospitality: :travel_hospitality, # Travel and hospitality
-                                  other_activity: :other_activity } # Other
+  include ActivitySectorOptions
 
-  enum kind_options: {
-    sole_trader: :sole_trader, # Entreprise individuelle
-    single_member_llc: :single_member_llc, # Entreprise unipersonnelle à responsabilité limitée (EURL)
-    llc: :llc, # Société à responsabilité limitée (SARL)
-    sa: :sa, # Société anonyme (SA)
-    general_partnership: :general_partnership, # Société en nom collectif (SNC)
-    limited_partnership: :limited_partnership, # Société en commandite simple (SCS)
-    partnership_limited_by_shares: :partnership_limited_by_shares, # Société en commandite par actions (SCA)
-    association: :association, # Association
-    cooperative: :cooperative, # Coopérative
-    non_profit_organization: :non_profit_organization, # Organisme sans but lucratif (OSBL)
-    public_administration: :public_administration, # Administration publique
-    other_kind: :other_kind
-  }
+  include KindOptions
 
+  # ----------------------------------
   # --- Relations ---
-  # Country - belongs to
-  belongs_to :country, class_name: 'Location::Country'
-  # City - belongs to
-  belongs_to :city, class_name: 'Location::City'
+  # ----------------------------------
   # Admin (user) - belongs to
   belongs_to :admin, class_name: 'User'
 
+  # City - belongs to
+  belongs_to :city, class_name: 'Location::City'
+
+  # Country - belongs to
+  belongs_to :country, class_name: 'Location::Country'
+
+  # Groups - has many
+  has_many :groups, class_name: 'Users::Group', dependent: :destroy
+
+  # Memberships (Organization - Group)
+  has_many :memberships, as: :joinable, class_name: 'Users::Membership', dependent: :destroy
+
+  # Memberships (Organization - Group)
+  has_many :users,
+           through: :memberships,
+           source: :member,
+           source_type: 'User',
+           class_name: 'User'
+
+  # ----------------------------------
   # --- Callbacks ---
+  # ----------------------------------
   before_save :normalize_phone
 
+  # ----------------------------------
   # --- Validations ---
+  # ----------------------------------
   # Activity description
   validates :activity_description, presence: { message: :required }
   validates :activity_description,
@@ -125,6 +114,7 @@ class Organization < ApplicationRecord
 
   # Name
   validates :name, presence: { message: :required }
+  validates :name, uniqueness: { message: :notUnique }
   validates :name,
             length: { in: 4..60, too_long: :tooLong,
                       too_short: :tooShort }

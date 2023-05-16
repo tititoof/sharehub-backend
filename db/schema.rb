@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_14_062701) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_16_044953) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -70,6 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_14_062701) do
     t.index ["admin_id"], name: "index_organizations_on_admin_id"
     t.index ["city_id"], name: "index_organizations_on_city_id"
     t.index ["country_id"], name: "index_organizations_on_country_id"
+    t.index ["name"], name: "index_organizations_on_name", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -85,6 +86,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_14_062701) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "users_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "kind"
+    t.uuid "admin_id", null: false
+    t.uuid "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_users_groups_on_admin_id"
+    t.index ["name"], name: "index_users_groups_on_name", unique: true
+    t.index ["organization_id"], name: "index_users_groups_on_organization_id"
+  end
+
+  create_table "users_memberships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "member_type", null: false
+    t.uuid "member_id", null: false
+    t.string "joinable_type", null: false
+    t.uuid "joinable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["joinable_type", "joinable_id"], name: "index_users_memberships_on_joinable"
+    t.index ["member_type", "member_id"], name: "index_users_memberships_on_member"
   end
 
   create_table "users_profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -110,6 +135,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_14_062701) do
   add_foreign_key "organizations", "location_cities", column: "city_id"
   add_foreign_key "organizations", "location_countries", column: "country_id"
   add_foreign_key "organizations", "users", column: "admin_id"
+  add_foreign_key "users_groups", "organizations"
+  add_foreign_key "users_groups", "users", column: "admin_id"
   add_foreign_key "users_profiles", "location_cities", column: "city_id"
   add_foreign_key "users_profiles", "users"
 end

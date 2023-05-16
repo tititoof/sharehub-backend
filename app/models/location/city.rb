@@ -26,17 +26,24 @@
 module Location
   # City is an ActiveRecord model representing a city.
   class City < ApplicationRecord
+    # ----------------------------------
     # --- Relations ---
+    # ----------------------------------
     # Country - belongs to
     belongs_to :country, class_name: 'Location::Country'
+
     # State - belongs to
     belongs_to :state, class_name: 'Location::State'
 
+    # ----------------------------------
     # --- Validations ---
+    # ----------------------------------
     # Name
     validates :name, presence: true
+
     # Latitude
     validates :latitude, presence: true
+
     # Longitude
     validates :longitude, presence: true
   end

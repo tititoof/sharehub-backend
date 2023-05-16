@@ -21,22 +21,32 @@ module Location
   # Country model representing a country in the world.
   # It has many associated states and cities.
   class Country < ApplicationRecord
+    # ----------------------------------
     # --- Relations ---
+    # ----------------------------------
     # States - has many - destroy states on destroy country
     has_many :states, class_name: 'Location::State', dependent: :destroy
+
     # Cities - has many - destroy cities on destroy country
     has_many :cities, class_name: 'Location::City', dependent: :destroy
 
+    # ----------------------------------
     # --- Validations ---
+    # ----------------------------------
     # Name
     validates :name, presence: true
+
     # Latitude
     validates :latitude, presence: true
+
     # Longitude
     validates :longitude, presence: true
+
     # Emoji
     validates :emoji, presence: true
+
     # Code
     validates :code, presence: true
+    validates :code, uniqueness: { message: :alreadyTaken }
   end
 end

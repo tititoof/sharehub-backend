@@ -30,6 +30,7 @@
 #  index_organizations_on_admin_id    (admin_id)
 #  index_organizations_on_city_id     (city_id)
 #  index_organizations_on_country_id  (country_id)
+#  index_organizations_on_name        (name) UNIQUE
 #
 # Foreign Keys
 #

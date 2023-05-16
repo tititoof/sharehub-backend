@@ -31,16 +31,22 @@
 module Users
   # Profile model representing a user profile
   class Profile < ApplicationRecord
+    # ----------------------------------
     # --- Relations ---
+    # ----------------------------------
     # City - belongs to
     belongs_to :city, class_name: 'Location::City'
     # User - belongs to
     belongs_to :user, class_name: 'User'
 
+    # ----------------------------------
     # --- Callbacks ---
+    # ----------------------------------
     before_save :normalize_phone
 
+    # ----------------------------------
     # --- Validations ---
+    # ----------------------------------
     # Date of birth
     validate :validate_age
 
