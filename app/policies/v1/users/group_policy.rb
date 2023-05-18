@@ -23,6 +23,10 @@ module V1
       def destroy?
         @user.is_admin? || @record.admin == @user
       end
+
+      def list?
+        @user.is_admin?
+      end
     end
   end
 end

@@ -24,8 +24,6 @@ module V1
         @resource = { success: true, payload: @group }
 
         serializer_response(::Users::GroupSerializer)
-      rescue ActiveRecord::RecordNotFound => _e
-        render json: { error: :recordNotFound }, status: :unprocessable_entity
       end
 
       def create
@@ -53,7 +51,9 @@ module V1
       end
 
       def list
-        @resource = { success: true, payload: ::Users::Profile.all }
+        authorize [:v1, ::Users::Group.all]
+
+        @resource = { success: true, payload: ::Users::Group.all }
 
         serializer_response(::Users::GroupSerializer)
       end

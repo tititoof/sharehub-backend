@@ -226,4 +226,38 @@ RSpec.describe "V1::Users::Groups", type: :request do
       end
     end
   end
+
+  # ------------------
+  # list
+  # ------------------
+  describe "GET /list" do
+    context 'When admin' do
+      before do
+        login_with_api(admin)
+      end
+
+      it 'returns all groups serialized' do
+        group = FactoryBot.create(:users_group)
+
+        get "#{groups_url}/list", headers: {
+          'Authorization': response.headers['Authorization']
+        }
+
+        expect(json['data'][0]).to have_jsonapi_attributes(:id, :description, :kind, :name, 
+                                                           :adminId, :organizationId).exactly
+      end
+    end
+
+    context 'When not admin' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'not authorize' do
+        get "#{groups_url}/list"
+
+        expect(response.status).to eq(401)
+      end
+    end
+  end
 end
