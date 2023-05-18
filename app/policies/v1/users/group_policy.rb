@@ -27,6 +27,14 @@ module V1
       def list?
         @user.is_admin?
       end
+
+      def add_member?
+        @user.is_admin? || @record.admin == @user
+      end
+
+      def remove_member?
+        @user.is_admin? || @record.admin == @user
+      end
     end
   end
 end

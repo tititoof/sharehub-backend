@@ -260,4 +260,96 @@ RSpec.describe "V1::Users::Groups", type: :request do
       end
     end
   end
+
+  # ------------------
+  # Add member
+  # ------------------
+  describe "POST /add-member" do
+    context 'When admin' do
+      before do
+        login_with_api(admin)
+      end
+
+      it 'returns all groups serialized' do
+        group = FactoryBot.create(:users_group)
+        user  = FactoryBot.create(:user)
+
+        post "#{groups_url}/#{group.id}/add-member",  params: {
+          group: { 
+            member_id: user.id
+          } }, headers: {
+          'Authorization': response.headers['Authorization']
+        }
+
+        expect(json['data']).to have_jsonapi_attributes(:id, :description, :kind, :name, 
+                                                           :adminId, :organizationId).exactly
+      end
+    end
+
+    context 'When not admin' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'not authorize' do
+        group = FactoryBot.create(:users_group)
+        user  = FactoryBot.create(:user)
+
+        post "#{groups_url}/#{group.id}/add-member",  params: {
+          group: { 
+            member_id: user.id
+          } 
+        }
+
+        expect(response.status).to eq(401)
+      end
+    end
+  end
+
+  # ------------------
+  # Remove member
+  # ------------------
+  describe "POST /remove-member" do
+    context 'When admin' do
+      before do
+        login_with_api(admin)
+      end
+
+      it 'returns all groups serialized' do
+        group = FactoryBot.create(:users_group)
+        user  = FactoryBot.create(:user)
+        group.users << user
+
+        post "#{groups_url}/#{group.id}/remove-member",  params: {
+          group: { 
+            member_id: user.id
+          } }, headers: {
+          'Authorization': response.headers['Authorization']
+        }
+
+        expect(json['data']).to have_jsonapi_attributes(:id, :description, :kind, :name, 
+                                                           :adminId, :organizationId).exactly
+      end
+    end
+
+    context 'When not admin' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'not authorize' do
+        group = FactoryBot.create(:users_group)
+        user  = FactoryBot.create(:user)
+        group.users << user
+
+        post "#{groups_url}/#{group.id}/remove-member",  params: {
+          group: { 
+            member_id: user.id
+          } 
+        }
+
+        expect(response.status).to eq(401)
+      end
+    end
+  end
 end
