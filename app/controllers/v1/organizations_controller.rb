@@ -6,7 +6,7 @@ module V1
     # force current_user to be authenticate
     before_action :authenticate_user!
     # set organization for methods update & destroy
-    before_action :set_organization, only: %i[update destroy show]
+    before_action :set_organization, only: %i[update destroy show add_member remove_member]
 
     def index
       authorize [:v1, ::Organization.all]
@@ -48,6 +48,24 @@ module V1
       object_response
     end
 
+    # Add member to a group
+    def add_member
+      authorize [:v1, @organization]
+
+      @resource = V1::Organizations::AddMemberService.call(@organization, organization_params)
+
+      serializer_response(::OrganizationSerializer)
+    end
+
+    # Remove member from a group
+    def remove_member
+      authorize [:v1, @organization]
+
+      @resource = V1::Organizations::AddMemberService.call(@organization, organization_params)
+
+      serializer_response(::OrganizationSerializer)
+    end
+
     private
 
     def set_organization
@@ -60,7 +78,7 @@ module V1
       params.required(:organization).permit(:activity_description, :activity_sector, :address,
                                             :annual_turnover, :borned_at, :email_address, :kind, :legal_status,
                                             :name, :number_of_employees, :phone_number, :registration_number,
-                                            :website, :city_id, :country_id, :admin_id)
+                                            :website, :city_id, :country_id, :admin_id, :member_id)
     end
   end
 end

@@ -25,11 +25,13 @@ Rails.application.routes.draw do
     end
 
     # /organizations
-    get     'organizations',                  to: 'organizations#index'
-    get     'organizations/:organization_id', to: 'organizations#show'
-    post    'organizations',                  to: 'organizations#create'
-    put     'organizations/:organization_id', to: 'organizations#update'
-    delete  'organizations/:organization_id', to: 'organizations#destroy'
+    get     'organizations',                                to: 'organizations#index'
+    get     'organizations/:organization_id',               to: 'organizations#show'
+    post    'organizations',                                to: 'organizations#create'
+    post    'organizations/:organization_id/add-member',    to: 'organizations#add_member'
+    post    'organizations/:organization_id/remove-member', to: 'organizations#remove_member'
+    put     'organizations/:organization_id',               to: 'organizations#update'
+    delete  'organizations/:organization_id',               to: 'organizations#destroy'
 
     # /users
     namespace :users do

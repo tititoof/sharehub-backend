@@ -202,11 +202,11 @@ RSpec.describe "V1::Organizations", type: :request do
           }
 
         expect(json['data']).to have_jsonapi_attributes(:id, :activityDescription, 
-                                                           :activitySector, :address, :annualTurnover,
-                                                           :bornedAt, :emailAddress, :kind, 
-                                                           :legalStatus, :name, :numberOfEmployees,
-                                                           :phoneNumber, :registrationNumber, :website, 
-                                                           :cityId, :countryId).exactly
+                                                        :activitySector, :address, :annualTurnover,
+                                                        :bornedAt, :emailAddress, :kind, 
+                                                        :legalStatus, :name, :numberOfEmployees,
+                                                        :phoneNumber, :registrationNumber, :website, 
+                                                        :cityId, :countryId).exactly
       end
     end
 
@@ -280,6 +280,106 @@ RSpec.describe "V1::Organizations", type: :request do
 
       it 'not authorize' do
         get organizations_url
+
+        expect(response.status).to eq(401)
+      end
+    end
+  end
+
+  # ------------------
+  # Add member
+  # ------------------
+  describe "POST /add-member" do
+    context 'When admin' do
+      before do
+        login_with_api(admin)
+      end
+
+      it 'returns all groups serialized' do
+        organization = FactoryBot.create(:organization)
+        user  = FactoryBot.create(:user)
+
+        post "#{organizations_url}/#{organization.id}/add-member",  params: {
+          organization: { 
+            member_id: user.id
+          } }, headers: {
+          'Authorization': response.headers['Authorization']
+        }
+
+        expect(json['data']).to have_jsonapi_attributes(:id, :activityDescription, 
+                                                        :activitySector, :address, :annualTurnover,
+                                                        :bornedAt, :emailAddress, :kind, 
+                                                        :legalStatus, :name, :numberOfEmployees,
+                                                        :phoneNumber, :registrationNumber, :website, 
+                                                        :cityId, :countryId).exactly
+      end
+    end
+
+    context 'When not admin' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'not authorize' do
+        organization = FactoryBot.create(:organization)
+        user  = FactoryBot.create(:user)
+
+        post "#{organizations_url}/#{organization.id}/add-member",  params: {
+          organization: { 
+            member_id: user.id
+          } 
+        }
+
+        expect(response.status).to eq(401)
+      end
+    end
+  end
+
+  # ------------------
+  # Remove member
+  # ------------------
+  describe "POST /remove-member" do
+    context 'When admin' do
+      before do
+        login_with_api(admin)
+      end
+
+      it 'returns all groups serialized' do
+        organization = FactoryBot.create(:organization)
+        user  = FactoryBot.create(:user)
+        organization.users << user
+
+        post "#{organizations_url}/#{organization.id}/remove-member",  params: {
+          organization: { 
+            member_id: user.id
+          } }, headers: {
+          'Authorization': response.headers['Authorization']
+        }
+
+        expect(json['data']).to have_jsonapi_attributes(:id, :activityDescription, 
+                                                        :activitySector, :address, :annualTurnover,
+                                                        :bornedAt, :emailAddress, :kind, 
+                                                        :legalStatus, :name, :numberOfEmployees,
+                                                        :phoneNumber, :registrationNumber, :website, 
+                                                        :cityId, :countryId).exactly
+      end
+    end
+
+    context 'When not admin' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'not authorize' do
+        organization = FactoryBot.create(:organization)
+        user  = FactoryBot.create(:user)
+        organization.users << user
+
+        post "#{organizations_url}/#{organization.id}/remove-member",  params: {
+          organization: { 
+            member_id: user.id
+          } 
+        }
 
         expect(response.status).to eq(401)
       end
