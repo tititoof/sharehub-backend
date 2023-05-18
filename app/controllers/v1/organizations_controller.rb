@@ -61,7 +61,7 @@ module V1
     def remove_member
       authorize [:v1, @organization]
 
-      @resource = V1::Organizations::AddMemberService.call(@organization, organization_params)
+      @resource = V1::Organizations::RemoveMemberService.call(@organization, organization_params)
 
       serializer_response(::OrganizationSerializer)
     end

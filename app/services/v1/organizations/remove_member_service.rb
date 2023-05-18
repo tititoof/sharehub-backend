@@ -10,7 +10,7 @@ module V1
     #
     # Returns the updated Organization object if the record was saved successfully, or error if validation
     # failed.
-    class AddMemberService < ApplicationCallable
+    class RemoveMemberService < ApplicationCallable
       attr_reader :organization, :properties
 
       def initialize(organization, properties)

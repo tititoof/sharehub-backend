@@ -76,7 +76,7 @@ module V1
       def remove_member
         authorize [:v1, @group]
 
-        @resource = V1::Users::Groups::AddMemberService.call(@group, group_params)
+        @resource = V1::Users::Groups::RemoveMemberService.call(@group, group_params)
 
         serializer_response(::Users::GroupSerializer)
       end

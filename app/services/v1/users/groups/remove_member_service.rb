@@ -11,7 +11,7 @@ module V1
       #
       # Returns the updated Group object if the record was saved successfully, or error if validation
       # failed.
-      class AddMemberService < ApplicationCallable
+      class RemoveMemberService < ApplicationCallable
         attr_reader :group, :properties
 
         def initialize(group, properties)
