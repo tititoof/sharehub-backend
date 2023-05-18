@@ -44,7 +44,7 @@ module Users
     belongs_to :organization, class_name: 'Organization'
 
     # Memberships (Organization - Group)
-    has_many :memberships, as: :joinable, class_name: '::Users::Membership', dependent: :destroy
+    include Joinable
 
     # Memberships users
     has_many :users,

@@ -64,7 +64,7 @@ class Organization < ApplicationRecord
   has_many :groups, class_name: 'Users::Group', dependent: :destroy
 
   # Memberships (Organization - Group)
-  has_many :memberships, as: :joinable, class_name: '::Users::Membership', dependent: :destroy
+  include Joinable
 
   # Memberships users
   has_many :users,

@@ -315,6 +315,7 @@
           1,
           null,
           null,
+          null,
           1,
           null,
           null,
@@ -487,6 +488,21 @@
           null
         ]
       },
+      "/usr/src/app/app/models/concerns/joinable.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          2,
+          null,
+          null
+        ]
+      },
       "/usr/src/app/app/models/users.rb": {
         "lines": [
           null,
@@ -550,6 +566,7 @@
           null,
           null,
           1,
+          null,
           null,
           null,
           1,
@@ -2489,6 +2506,6 @@
         }
       }
     },
-    "timestamp": 1684400013
+    "timestamp": 1684425871
   }
 }
