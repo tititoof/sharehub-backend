@@ -33,11 +33,18 @@ Rails.application.routes.draw do
 
     # /users
     namespace :users do
-      # /profile
+      # /profiles
       get   '/profiles',              to: 'profiles#index'
       get   '/profiles/list',         to: 'profiles#list'
       get   '/profiles/:profile_id',  to: 'profiles#show'
       post  '/profiles',              to: 'profiles#save'
+
+      # /groups
+      get     '/groups',            to: 'groups#index'
+      get     '/groups/:group_id',  to: 'groups#show'
+      post    '/groups',            to: 'groups#create'
+      put     '/groups/:group_id',  to: 'groups#update'
+      delete  '/groups/:group_id',  to: 'groups#destroy'
     end
   end
   # Defines the root path route ("/")

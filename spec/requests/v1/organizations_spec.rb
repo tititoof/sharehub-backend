@@ -55,6 +55,9 @@ RSpec.describe "V1::Organizations", type: :request do
     end
   end
 
+  # ------------------
+  # show
+  # ------------------
   describe "GET /:organization_id" do
     context 'When logged in' do
       before do
@@ -98,6 +101,9 @@ RSpec.describe "V1::Organizations", type: :request do
     end
   end
 
+  # ------------------
+  # create
+  # ------------------
   describe "POST /" do
     context 'When logged in' do
       before do
@@ -105,7 +111,6 @@ RSpec.describe "V1::Organizations", type: :request do
       end
 
       it 'returns organizations serialized' do
-        organization = FactoryBot.create(:organization)
         city = FactoryBot.create(:location_city)
         country = FactoryBot.create(:location_country)
 
@@ -160,6 +165,9 @@ RSpec.describe "V1::Organizations", type: :request do
     end
   end
 
+  # ------------------
+  # update
+  # ------------------
   describe "PUT /:organization_id" do
     context 'When logged in' do
       before do
@@ -223,6 +231,9 @@ RSpec.describe "V1::Organizations", type: :request do
     end
   end
 
+  # ------------------
+  # destroy
+  # ------------------
   describe "DELETE /:organization_id" do
     context 'When logged in' do
       before do

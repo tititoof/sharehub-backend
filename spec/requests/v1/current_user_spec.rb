@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "V1::CurrentUsers", type: :request do
   
+  # ------------------
+  # index
+  # ------------------
   describe "GET /index" do
     let (:user) { create_user }
     let (:login_url) { '/login' }

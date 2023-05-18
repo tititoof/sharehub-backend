@@ -36,14 +36,14 @@ class User < ApplicationRecord
   has_one :profile, class_name: 'Users::Profile', dependent: :destroy
 
   # Memberships (Organization - Group)
-  has_many :memberships, as: :member, class_name: 'Users::Membership', dependent: :destroy
+  has_many :memberships, as: :member, class_name: '::Users::Membership', dependent: :destroy
 
   # Group - has_many
   has_many :groups,
            through: :memberships,
            source: :joinable,
-           source_type: 'Group',
-           class_name: 'Group'
+           source_type: 'Users::Group',
+           class_name: 'Users::Group'
 
   # Organization - has_many
   has_many :organizations,
