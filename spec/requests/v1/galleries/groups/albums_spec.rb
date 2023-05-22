@@ -216,6 +216,81 @@ RSpec.describe "V1::Galleries::Groups::Albums", type: :request do
       end
     end
 
+    context 'When logged in and private publish' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'returns albums serialized' do
+        group = FactoryBot.create(:users_group)
+        group.users << user
+        group.save!
+
+        album = FactoryBot.create(:galleries_album_group, albumable: group)
+
+        put "#{albums_url}/#{group.id}/albums/#{album.id}", params: {
+          album: { 
+            title: Faker::Game.title,
+            description: Faker::Books::Lovecraft.paragraph,
+            aasm_state: :private_publish
+          } }, headers: {
+            'Authorization': response.headers['Authorization']
+          }
+
+        expect(json['data']).to have_jsonapi_attributes(:id, :aasmState, :title, :description).exactly
+      end
+    end
+
+    context 'When logged in and friend publish' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'returns albums serialized' do
+        group = FactoryBot.create(:users_group)
+        group.users << user
+        group.save!
+
+        album = FactoryBot.create(:galleries_album_group, albumable: group)
+
+        put "#{albums_url}/#{group.id}/albums/#{album.id}", params: {
+          album: { 
+            title: Faker::Game.title,
+            description: Faker::Books::Lovecraft.paragraph,
+            aasm_state: :friend_publish
+          } }, headers: {
+            'Authorization': response.headers['Authorization']
+          }
+
+        expect(json['data']).to have_jsonapi_attributes(:id, :aasmState, :title, :description).exactly
+      end
+    end
+
+    context 'When logged in and public publish' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'returns albums serialized' do
+        group = FactoryBot.create(:users_group)
+        group.users << user
+        group.save!
+
+        album = FactoryBot.create(:galleries_album_group, albumable: group)
+
+        put "#{albums_url}/#{group.id}/albums/#{album.id}", params: {
+          album: { 
+            title: Faker::Game.title,
+            description: Faker::Books::Lovecraft.paragraph,
+            aasm_state: :public_publish
+          } }, headers: {
+            'Authorization': response.headers['Authorization']
+          }
+
+        expect(json['data']).to have_jsonapi_attributes(:id, :aasmState, :title, :description).exactly
+      end
+    end
+
     context 'When not logged in' do
       it 'returns 401' do
         group = FactoryBot.create(:users_group)
