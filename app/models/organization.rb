@@ -66,6 +66,9 @@ class Organization < ApplicationRecord
   # Memberships (Organization - Group)
   include Joinable
 
+  # Albums
+  include Albumable
+
   # Memberships users
   has_many :users,
            through: :memberships,

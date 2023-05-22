@@ -51,4 +51,7 @@ class User < ApplicationRecord
            source: :joinable,
            source_type: 'Organization',
            class_name: 'Organization'
+
+  # Albums
+  include Albumable
 end
