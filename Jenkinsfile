@@ -90,7 +90,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv("sonarqube") {
-                        sleep(10)
+                        sleep(20)
                         def qualitygate = waitForQualityGate()
                         if (qualitygate.status != "OK") {
                             env.WORKSPACE = pwd()
