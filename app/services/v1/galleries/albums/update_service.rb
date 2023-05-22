@@ -39,6 +39,8 @@ module V1
             @album.friend_publish!
           when 'public_publish'
             @album.public_publish!
+          else
+            @album.draft_publish!
           end
         end
       end

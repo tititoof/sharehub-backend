@@ -20,7 +20,7 @@
 module Galleries
   # Album is an ActiveRecord model representing an Album.
   class Album < ApplicationRecord
-    # AASM 
+    # AASM
     include AASM
 
     # ----------------------------------
