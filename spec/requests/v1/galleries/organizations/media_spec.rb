@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'net/http'
 
 RSpec.describe "V1::Galleries::Organization::Media", type: :request do
   let (:admin) { create_admin }

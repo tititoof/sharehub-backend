@@ -17,6 +17,7 @@
 #  fk_rails_...  (album_id => galleries_albums.id)
 #
 require 'rails_helper'
+require 'net/http'
 
 RSpec.describe Galleries::Medium, type: :model do
   subject { FactoryBot.create(:galleries_medium) }
