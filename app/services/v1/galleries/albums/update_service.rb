@@ -31,14 +31,11 @@ module V1
 
         def change_state
           case @properties[:aasm_state]
-          when 'draft_publish'
-            @album.draft_publish!
-          when 'private_publish'
-            @album.private_publish!
-          when 'friend_publish'
-            @album.friend_publish!
-          when 'public_publish'
-            @album.public_publish!
+          when 'draft_publish'    then @album.draft_publish!
+          when 'private_publish'  then @album.private_publish!
+          when 'friend_publish'   then @album.friend_publish!
+          when 'public_publish'   then @album.public_publish!
+          else                         @album.draft_publish! if @album.may_draft_publish?
           end
         end
       end

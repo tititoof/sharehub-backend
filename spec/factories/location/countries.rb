@@ -21,6 +21,6 @@ FactoryBot.define do
     latitude { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
     emoji { Faker::Nation.flag }
-    code { Faker::Number.between(from: 1, to: 5000)}
+    code { Faker::Number.between(from: 1, to: 50000)}
   end
 end
