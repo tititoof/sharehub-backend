@@ -215,4 +215,67 @@ RSpec.describe "V1::Galleries::Organization::Media", type: :request do
       end
     end
   end
+
+  # ------------------
+  # destroy
+  # ------------------
+  describe "DELETE /:organizations/:organization_id/albums/:album_id/media/:medium_id" do
+    context 'When logged in' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'returns done :ok' do
+        organization = FactoryBot.create(:organization)
+        organization.users << user
+        organization.admin = user
+        organization.save!
+
+        album = FactoryBot.create(:galleries_album_organization, albumable: organization)
+        media = FactoryBot.create(:galleries_medium, album:)
+        media.file.attach(io: image_file, filename: 'test')
+        media.save!
+
+        delete "#{albums_url}/#{organization.id}/albums/#{album.id}/media/#{media.id}", headers: {
+            'Authorization': response.headers['Authorization']
+          }
+
+        expect(json['done']).to eq('ok')
+      end
+    end
+
+    context 'When not in group' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'returns an error' do
+        organization = FactoryBot.create(:organization)
+        album = FactoryBot.create(:galleries_album_organization, albumable: organization)
+        media = FactoryBot.create(:galleries_medium, album:)
+        media.file.attach(io: image_file, filename: 'test')
+        media.save!
+
+        delete "#{albums_url}/#{organization.id}/albums/#{album.id}/media/#{media.id}", headers: {
+            'Authorization': response.headers['Authorization']
+          }
+
+        expect(response.status).to eq(422)
+      end
+    end
+
+    context 'When not logged in' do
+      it 'returns 401' do
+        organization = FactoryBot.create(:organization)
+        album = FactoryBot.create(:galleries_album_organization, albumable: organization)
+        media = FactoryBot.create(:galleries_medium, album:)
+        media.file.attach(io: image_file, filename: 'test')
+        media.save!
+
+        delete "#{albums_url}/#{organization.id}/albums/#{album.id}/media/#{media.id}"
+
+        expect(response.status).to eq(401)
+      end
+    end
+  end
 end

@@ -133,4 +133,41 @@ RSpec.describe "V1::Galleries::Users::Media", type: :request do
       end
     end
   end
+
+  # ------------------
+  # destroy
+  # ------------------
+  describe "DELETE /albums/:album_id/media/:medium_id" do
+    context 'When logged in' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'returns done :ok' do
+        album = FactoryBot.create(:galleries_album, albumable: user)
+        media = FactoryBot.create(:galleries_medium, album:)
+        media.file.attach(io: image_file, filename: 'test')
+        media.save!
+
+        delete "#{albums_url}/albums/#{album.id}/media/#{media.id}", headers: {
+            'Authorization': response.headers['Authorization']
+          }
+
+        expect(json['done']).to eq('ok')
+      end
+    end
+
+    context 'When not logged in' do
+      it 'returns 401' do
+        album = FactoryBot.create(:galleries_album, albumable: user)
+        media = FactoryBot.create(:galleries_medium, album:)
+        media.file.attach(io: image_file, filename: 'test')
+        media.save!
+
+        delete "#{albums_url}/albums/#{album.id}/media/#{media.id}"
+
+        expect(response.status).to eq(401)
+      end
+    end
+  end
 end

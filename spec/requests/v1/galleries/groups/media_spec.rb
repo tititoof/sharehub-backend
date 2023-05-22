@@ -214,4 +214,67 @@ RSpec.describe "V1::Galleries::Groups::Media", type: :request do
       end
     end
   end
+
+  # ------------------
+  # destroy
+  # ------------------
+  describe "DELETE /:group_id/albums/:album_id/media/:medium_id" do
+    context 'When logged in' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'returns done :ok' do
+        group = FactoryBot.create(:users_group)
+        group.users << user
+        group.admin = user
+        group.save!
+
+        album = FactoryBot.create(:galleries_album_group, albumable: group)
+        media = FactoryBot.create(:galleries_medium, album:)
+        media.file.attach(io: image_file, filename: 'test')
+        media.save!
+
+        delete "#{albums_url}/#{group.id}/albums/#{album.id}/media/#{media.id}", headers: {
+            'Authorization': response.headers['Authorization']
+          }
+
+        expect(json['done']).to eq('ok')
+      end
+    end
+
+    context 'When not in group' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'returns an error' do
+        group = FactoryBot.create(:users_group)
+        album = FactoryBot.create(:galleries_album_group, albumable: group)
+        media = FactoryBot.create(:galleries_medium, album:)
+        media.file.attach(io: image_file, filename: 'test')
+        media.save!
+
+        delete "#{albums_url}/#{group.id}/albums/#{album.id}/media/#{media.id}", headers: {
+            'Authorization': response.headers['Authorization']
+          }
+
+        expect(response.status).to eq(422)
+      end
+    end
+
+    context 'When not logged in' do
+      it 'returns 401' do
+        group = FactoryBot.create(:users_group)
+        album = FactoryBot.create(:galleries_album_group, albumable: group)
+        media = FactoryBot.create(:galleries_medium, album:)
+        media.file.attach(io: image_file, filename: 'test')
+        media.save!
+
+        delete "#{albums_url}/#{group.id}/albums/#{album.id}/media/#{media.id}"
+
+        expect(response.status).to eq(401)
+      end
+    end
+  end
 end
