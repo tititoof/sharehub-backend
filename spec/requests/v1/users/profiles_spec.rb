@@ -6,11 +6,13 @@ RSpec.describe "V1::Users::Profiles", type: :request do
   let (:login_url) { '/login' }
   let (:profiles_url) { '/v1/users/profiles' }
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # index
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /" do
-    # User logged & admin
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -29,7 +31,9 @@ RSpec.describe "V1::Users::Profiles", type: :request do
       end
     end
 
+    # --------------------
     # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         get profiles_url
@@ -39,11 +43,13 @@ RSpec.describe "V1::Users::Profiles", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # show
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /:profile_id" do
-    # User logged & admin
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -62,7 +68,9 @@ RSpec.describe "V1::Users::Profiles", type: :request do
       end
     end
 
+    # --------------------
     # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         get profiles_url
@@ -72,11 +80,13 @@ RSpec.describe "V1::Users::Profiles", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # list
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /list" do
-    # User logged & admin
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -95,7 +105,9 @@ RSpec.describe "V1::Users::Profiles", type: :request do
       end
     end
 
+    # --------------------
     # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         get profiles_url
@@ -105,11 +117,13 @@ RSpec.describe "V1::Users::Profiles", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # save - create
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "POST /" do
-    # User logged & admin
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -138,7 +152,9 @@ RSpec.describe "V1::Users::Profiles", type: :request do
       end
     end
 
+    # --------------------
     # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         get profiles_url
@@ -148,11 +164,13 @@ RSpec.describe "V1::Users::Profiles", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # save - update
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "POST /" do
-    # User logged & admin
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -182,7 +200,9 @@ RSpec.describe "V1::Users::Profiles", type: :request do
       end
     end
 
+    # --------------------
     # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         get profiles_url

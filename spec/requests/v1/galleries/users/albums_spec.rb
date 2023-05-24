@@ -6,11 +6,13 @@ RSpec.describe "V1::Galleries::Users::Albums", type: :request do
   let (:login_url) { '/login' }
   let (:albums_url) { '/v1/galleries/users' }
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # index
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /" do
-    # User logged & admin
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -27,7 +29,9 @@ RSpec.describe "V1::Galleries::Users::Albums", type: :request do
       end
     end
 
+    # --------------------
     # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         album = FactoryBot.create(:galleries_album, albumable: user)
@@ -39,10 +43,13 @@ RSpec.describe "V1::Galleries::Users::Albums", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # show
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /albums/:album_id" do
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -59,7 +66,9 @@ RSpec.describe "V1::Galleries::Users::Albums", type: :request do
       end
     end
 
+    # --------------------
     # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         album = FactoryBot.create(:galleries_album, albumable: user)
@@ -71,10 +80,13 @@ RSpec.describe "V1::Galleries::Users::Albums", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # create
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "POST /albums" do
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(admin)
@@ -94,6 +106,9 @@ RSpec.describe "V1::Galleries::Users::Albums", type: :request do
       end
     end
 
+    # --------------------
+    # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         post "#{albums_url}/albums", params: {
@@ -108,10 +123,13 @@ RSpec.describe "V1::Galleries::Users::Albums", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # update
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "PUT /albums/:album_id" do
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -133,6 +151,9 @@ RSpec.describe "V1::Galleries::Users::Albums", type: :request do
       end
     end
 
+    # --------------------
+    # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         album = FactoryBot.create(:galleries_album, albumable: user)
@@ -149,10 +170,13 @@ RSpec.describe "V1::Galleries::Users::Albums", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # destroy
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "DELETE /albums/:album_id" do
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -169,6 +193,9 @@ RSpec.describe "V1::Galleries::Users::Albums", type: :request do
       end
     end
 
+    # --------------------
+    # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         album = FactoryBot.create(:galleries_album, albumable: user)

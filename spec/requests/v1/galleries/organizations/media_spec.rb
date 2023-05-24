@@ -16,11 +16,13 @@ RSpec.describe "V1::Galleries::Organization::Media", type: :request do
     ::File.new(file.path)
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # index
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /:organization_id/albums/:album_id/media" do
-    # User logged & admin
+    # --------------------
+    # User in organization
+    # --------------------
     context 'When logged in and in group' do
       before do
         login_with_api(user)
@@ -44,25 +46,9 @@ RSpec.describe "V1::Galleries::Organization::Media", type: :request do
       end
     end
 
-    # User not logged
-    context 'When not logged in' do
-      it 'returns 401' do
-        organization = FactoryBot.create(:organization)
-        organization.users << user
-        organization.save!
-
-        album = FactoryBot.create(:galleries_album_organization, albumable: organization)
-        media = FactoryBot.create(:galleries_medium, album:)
-        media.file.attach(io: image_file, filename: 'test')
-        media.save!
-
-        get "#{albums_url}/#{organization.id}/albums/#{album.id}/media"
-
-        expect(response.status).to eq(401)
-      end
-    end
-
+    # --------------------
     # User not in organization
+    # --------------------
     context 'When not in organization' do
       before do
         login_with_api(user)
@@ -80,13 +66,36 @@ RSpec.describe "V1::Galleries::Organization::Media", type: :request do
         expect(response.status).to eq(422)
       end
     end
+
+    # --------------------
+    # User not logged
+    # --------------------
+    context 'When not logged in' do
+      it 'returns 401' do
+        organization = FactoryBot.create(:organization)
+        organization.users << user
+        organization.save!
+
+        album = FactoryBot.create(:galleries_album_organization, albumable: organization)
+        media = FactoryBot.create(:galleries_medium, album:)
+        media.file.attach(io: image_file, filename: 'test')
+        media.save!
+
+        get "#{albums_url}/#{organization.id}/albums/#{album.id}/media"
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # show
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /:organization_id/albums/:album_id/media/:medium_id" do
-    context 'When logged in and in group' do
+    # --------------------
+    # User in organization
+    # --------------------
+    context 'When logged in and in organization' do
       before do
         login_with_api(user)
       end
@@ -109,25 +118,9 @@ RSpec.describe "V1::Galleries::Organization::Media", type: :request do
       end
     end
 
-    # User not logged
-    context 'When not logged in' do
-      it 'returns 401' do
-        organization = FactoryBot.create(:organization)
-        organization.users << user
-        organization.save!
-
-        album = FactoryBot.create(:galleries_album_organization, albumable: organization)
-        media = FactoryBot.create(:galleries_medium, album:)
-        media.file.attach(io: image_file, filename: 'test')
-        media.save!
-
-        get "#{albums_url}/#{organization.id}/albums/#{album.id}/media/#{media.id}"
-
-        expect(response.status).to eq(401)
-      end
-    end
-
+    # --------------------
     # User not in organization
+    # --------------------
     context 'When not in organization' do
       before do
         login_with_api(user)
@@ -147,12 +140,35 @@ RSpec.describe "V1::Galleries::Organization::Media", type: :request do
         expect(response.status).to eq(422)
       end
     end
+
+    # --------------------
+    # User not logged
+    # --------------------
+    context 'When not logged in' do
+      it 'returns 401' do
+        organization = FactoryBot.create(:organization)
+        organization.users << user
+        organization.save!
+
+        album = FactoryBot.create(:galleries_album_organization, albumable: organization)
+        media = FactoryBot.create(:galleries_medium, album:)
+        media.file.attach(io: image_file, filename: 'test')
+        media.save!
+
+        get "#{albums_url}/#{organization.id}/albums/#{album.id}/media/#{media.id}"
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # create
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "POST /:organization_id/albums/:album_id/media" do
+    # --------------------
+    # User in organization
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -179,22 +195,10 @@ RSpec.describe "V1::Galleries::Organization::Media", type: :request do
       end
     end
 
-    context 'When not logged in' do
-      it 'returns 401' do
-        organization = FactoryBot.create(:organization)
-        album = FactoryBot.create(:galleries_album_organization, albumable: organization)
-
-        post "#{albums_url}/#{organization.id}/albums/#{album.id}/media", params: {
-          medium: { 
-            medium: image_file,
-            kind: 'image'
-          } }
-
-        expect(response.status).to eq(401)
-      end
-    end
-
-    context 'When not in group' do
+    # --------------------
+    # User not in organization
+    # --------------------
+    context 'When not in organization' do
       before do
         login_with_api(user)
       end
@@ -214,12 +218,33 @@ RSpec.describe "V1::Galleries::Organization::Media", type: :request do
         expect(response.status).to eq(422)
       end
     end
+
+    # --------------------
+    # User not logged
+    # --------------------
+    context 'When not logged in' do
+      it 'returns 401' do
+        organization = FactoryBot.create(:organization)
+        album = FactoryBot.create(:galleries_album_organization, albumable: organization)
+
+        post "#{albums_url}/#{organization.id}/albums/#{album.id}/media", params: {
+          medium: { 
+            medium: image_file,
+            kind: 'image'
+          } }
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # destroy
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "DELETE /:organizations/:organization_id/albums/:album_id/media/:medium_id" do
+    # --------------------
+    # User in organization
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -244,7 +269,10 @@ RSpec.describe "V1::Galleries::Organization::Media", type: :request do
       end
     end
 
-    context 'When not in group' do
+    # --------------------
+    # User not in organization
+    # --------------------
+    context 'When not in organization' do
       before do
         login_with_api(user)
       end
@@ -264,6 +292,9 @@ RSpec.describe "V1::Galleries::Organization::Media", type: :request do
       end
     end
 
+    # --------------------
+    # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         organization = FactoryBot.create(:organization)

@@ -2,13 +2,16 @@ require 'rails_helper'
 
 RSpec.describe "V1::CurrentUsers", type: :request do
   
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # index
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /index" do
     let (:user) { create_user }
     let (:login_url) { '/login' }
 
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -31,6 +34,9 @@ RSpec.describe "V1::CurrentUsers", type: :request do
       end
     end
 
+    # --------------------
+    # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         get "/v1/current_user/index"

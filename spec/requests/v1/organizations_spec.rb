@@ -6,11 +6,13 @@ RSpec.describe "V1::Organizations", type: :request do
   let (:login_url) { '/login' }
   let (:organizations_url) { '/v1/organizations' }
   
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # index
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /" do
-    # User logged & admin
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(admin)
@@ -32,16 +34,9 @@ RSpec.describe "V1::Organizations", type: :request do
       end
     end
 
-    # User not logged
-    context 'When not logged in' do
-      it 'returns 401' do
-        get organizations_url
-
-        expect(response.status).to eq(401)
-      end
-    end
-
-    # User not admin
+    # --------------------
+    # User logged in & not admin
+    # --------------------
     context 'When not admin' do
       before do
         login_with_api(user)
@@ -53,12 +48,26 @@ RSpec.describe "V1::Organizations", type: :request do
         expect(response.status).to eq(401)
       end
     end
+
+    # --------------------
+    # User not logged
+    # --------------------
+    context 'When not logged in' do
+      it 'returns 401' do
+        get organizations_url
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # show
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /:organization_id" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(admin)
@@ -80,14 +89,9 @@ RSpec.describe "V1::Organizations", type: :request do
       end
     end
 
-    context 'When not logged in' do
-      it 'returns 401' do
-        get organizations_url
-
-        expect(response.status).to eq(401)
-      end
-    end
-
+    # --------------------
+    # User logged in & not admin
+    # --------------------
     context 'When not admin' do
       before do
         login_with_api(user)
@@ -99,12 +103,26 @@ RSpec.describe "V1::Organizations", type: :request do
         expect(response.status).to eq(401)
       end
     end
+
+    # --------------------
+    # User not logged
+    # --------------------
+    context 'When not logged in' do
+      it 'returns 401' do
+        get organizations_url
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # create
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "POST /" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(admin)
@@ -144,14 +162,9 @@ RSpec.describe "V1::Organizations", type: :request do
       end
     end
 
-    context 'When not logged in' do
-      it 'returns 401' do
-        get organizations_url
-
-        expect(response.status).to eq(401)
-      end
-    end
-
+    # --------------------
+    # User logged in & not admin
+    # --------------------
     context 'When not admin' do
       before do
         login_with_api(user)
@@ -163,12 +176,26 @@ RSpec.describe "V1::Organizations", type: :request do
         expect(response.status).to eq(401)
       end
     end
+
+    # --------------------
+    # User not logged
+    # --------------------
+    context 'When not logged in' do
+      it 'returns 401' do
+        get organizations_url
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # update
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "PUT /:organization_id" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(admin)
@@ -210,14 +237,9 @@ RSpec.describe "V1::Organizations", type: :request do
       end
     end
 
-    context 'When not logged in' do
-      it 'returns 401' do
-        get organizations_url
-
-        expect(response.status).to eq(401)
-      end
-    end
-
+    # --------------------
+    # User logged in & not admin
+    # --------------------
     context 'When not admin' do
       before do
         login_with_api(user)
@@ -229,12 +251,26 @@ RSpec.describe "V1::Organizations", type: :request do
         expect(response.status).to eq(401)
       end
     end
+
+    # --------------------
+    # User not logged
+    # --------------------
+    context 'When not logged in' do
+      it 'returns 401' do
+        get organizations_url
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # destroy
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "DELETE /:organization_id" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(admin)
@@ -251,6 +287,24 @@ RSpec.describe "V1::Organizations", type: :request do
       end
     end
 
+    # --------------------
+    # User logged in & not admin
+    # --------------------
+    context 'When not admin' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'not authorize' do
+        get organizations_url
+
+        expect(response.status).to eq(401)
+      end
+    end
+
+    # --------------------
+    # User logged in & admin without organization
+    # --------------------
     context 'when no organization' do
       before do
         login_with_api(admin)
@@ -265,6 +319,9 @@ RSpec.describe "V1::Organizations", type: :request do
       end
     end
 
+    # --------------------
+    # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         get organizations_url
@@ -272,24 +329,15 @@ RSpec.describe "V1::Organizations", type: :request do
         expect(response.status).to eq(401)
       end
     end
-
-    context 'When not admin' do
-      before do
-        login_with_api(user)
-      end
-
-      it 'not authorize' do
-        get organizations_url
-
-        expect(response.status).to eq(401)
-      end
-    end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # Add member
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "POST /add-member" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When admin' do
       before do
         login_with_api(admin)
@@ -315,6 +363,9 @@ RSpec.describe "V1::Organizations", type: :request do
       end
     end
 
+    # --------------------
+    # User logged in & not admin
+    # --------------------
     context 'When not admin' do
       before do
         login_with_api(user)
@@ -335,10 +386,13 @@ RSpec.describe "V1::Organizations", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # Remove member
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "POST /remove-member" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When admin' do
       before do
         login_with_api(admin)
@@ -365,6 +419,9 @@ RSpec.describe "V1::Organizations", type: :request do
       end
     end
 
+    # --------------------
+    # User logged in & not admin
+    # --------------------
     context 'When not admin' do
       before do
         login_with_api(user)

@@ -6,11 +6,13 @@ RSpec.describe "V1::Users::Groups", type: :request do
   let (:login_url) { '/login' }
   let (:groups_url) { '/v1/users/groups' }
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # index
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /" do
-    # User logged & admin
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -30,7 +32,9 @@ RSpec.describe "V1::Users::Groups", type: :request do
       end
     end
 
+    # --------------------
     # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         get groups_url
@@ -40,17 +44,19 @@ RSpec.describe "V1::Users::Groups", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # show
-  # ------------------
-  describe "GET /:profile_id" do
-    # User logged & admin
+  # -------------------------------------------------------------------------------------
+  describe "GET /:group_id" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
       end
 
-      it 'returns groups serialized' do
+      it 'returns group serialized' do
         group = FactoryBot.create(:users_group)
         group.users << user
         group.save!
@@ -64,7 +70,9 @@ RSpec.describe "V1::Users::Groups", type: :request do
       end
     end
 
+    # --------------------
     # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         get groups_url
@@ -74,10 +82,13 @@ RSpec.describe "V1::Users::Groups", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # create
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "POST /" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(admin)
@@ -102,14 +113,9 @@ RSpec.describe "V1::Users::Groups", type: :request do
       end
     end
 
-    context 'When not logged in' do
-      it 'returns 401' do
-        get groups_url
-
-        expect(response.status).to eq(401)
-      end
-    end
-
+    # --------------------
+    # User not admin
+    # --------------------
     context 'When not admin' do
       before do
         login_with_api(user)
@@ -121,12 +127,26 @@ RSpec.describe "V1::Users::Groups", type: :request do
         expect(response.status).to eq(401)
       end
     end
+
+    # --------------------
+    # User not logged
+    # --------------------
+    context 'When not logged in' do
+      it 'returns 401' do
+        get groups_url
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # update
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "PUT /:group_id" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(admin)
@@ -151,14 +171,9 @@ RSpec.describe "V1::Users::Groups", type: :request do
       end
     end
 
-    context 'When not logged in' do
-      it 'returns 401' do
-        get groups_url
-
-        expect(response.status).to eq(401)
-      end
-    end
-
+    # --------------------
+    # User not admin
+    # --------------------
     context 'When not admin' do
       before do
         login_with_api(user)
@@ -170,12 +185,26 @@ RSpec.describe "V1::Users::Groups", type: :request do
         expect(response.status).to eq(401)
       end
     end
+
+    # --------------------
+    # User not logged
+    # --------------------
+    context 'When not logged in' do
+      it 'returns 401' do
+        get groups_url
+
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # destroy
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "DELETE /:group_id" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(admin)
@@ -192,7 +221,25 @@ RSpec.describe "V1::Users::Groups", type: :request do
       end
     end
 
-    context 'when no organization' do
+    # --------------------
+    # User not admin
+    # --------------------
+    context 'When not admin' do
+      before do
+        login_with_api(user)
+      end
+
+      it 'not authorize' do
+        get groups_url
+
+        expect(response.status).to eq(401)
+      end
+    end
+
+    # --------------------
+    # User without group
+    # --------------------
+    context 'when no group' do
       before do
         login_with_api(admin)
       end
@@ -206,6 +253,9 @@ RSpec.describe "V1::Users::Groups", type: :request do
       end
     end
 
+    # --------------------
+    # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         get groups_url
@@ -213,24 +263,15 @@ RSpec.describe "V1::Users::Groups", type: :request do
         expect(response.status).to eq(401)
       end
     end
-
-    context 'When not admin' do
-      before do
-        login_with_api(user)
-      end
-
-      it 'not authorize' do
-        get groups_url
-
-        expect(response.status).to eq(401)
-      end
-    end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # list
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /list" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When admin' do
       before do
         login_with_api(admin)
@@ -248,6 +289,9 @@ RSpec.describe "V1::Users::Groups", type: :request do
       end
     end
 
+    # --------------------
+    # User not admin
+    # --------------------
     context 'When not admin' do
       before do
         login_with_api(user)
@@ -261,10 +305,13 @@ RSpec.describe "V1::Users::Groups", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # Add member
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "POST /add-member" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When admin' do
       before do
         login_with_api(admin)
@@ -286,6 +333,9 @@ RSpec.describe "V1::Users::Groups", type: :request do
       end
     end
 
+    # --------------------
+    # User not admin
+    # --------------------
     context 'When not admin' do
       before do
         login_with_api(user)
@@ -306,10 +356,13 @@ RSpec.describe "V1::Users::Groups", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # Remove member
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "POST /remove-member" do
+    # --------------------
+    # User logged in & admin
+    # --------------------
     context 'When admin' do
       before do
         login_with_api(admin)
@@ -332,6 +385,9 @@ RSpec.describe "V1::Users::Groups", type: :request do
       end
     end
 
+    # --------------------
+    # User not admin
+    # --------------------
     context 'When not admin' do
       before do
         login_with_api(user)

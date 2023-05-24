@@ -16,11 +16,13 @@ RSpec.describe "V1::Galleries::Users::Media", type: :request do
     ::File.new(file.path)
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # index
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /albums/:album_id/media" do
-    # User logged & admin
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in and in group' do
       before do
         login_with_api(user)
@@ -40,7 +42,9 @@ RSpec.describe "V1::Galleries::Users::Media", type: :request do
       end
     end
 
+    # --------------------
     # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         album = FactoryBot.create(:galleries_album, albumable: user)
@@ -55,10 +59,13 @@ RSpec.describe "V1::Galleries::Users::Media", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # show
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "GET /albums/:album_id/media/:medium_id" do
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -78,7 +85,9 @@ RSpec.describe "V1::Galleries::Users::Media", type: :request do
       end
     end
 
+    # --------------------
     # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         album = FactoryBot.create(:galleries_album, albumable: user)
@@ -93,10 +102,13 @@ RSpec.describe "V1::Galleries::Users::Media", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # create
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "POST /albums/:album_id/media" do
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -119,6 +131,9 @@ RSpec.describe "V1::Galleries::Users::Media", type: :request do
       end
     end
 
+    # --------------------
+    # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         album = FactoryBot.create(:galleries_album, albumable: user)
@@ -134,10 +149,13 @@ RSpec.describe "V1::Galleries::Users::Media", type: :request do
     end
   end
 
-  # ------------------
+  # -------------------------------------------------------------------------------------
   # destroy
-  # ------------------
+  # -------------------------------------------------------------------------------------
   describe "DELETE /albums/:album_id/media/:medium_id" do
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -157,6 +175,9 @@ RSpec.describe "V1::Galleries::Users::Media", type: :request do
       end
     end
 
+    # --------------------
+    # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         album = FactoryBot.create(:galleries_album, albumable: user)

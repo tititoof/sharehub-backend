@@ -1,11 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "V1::Cities", type: :request do
+  # -------------------------------------------------------------------------------------
+  # index
+  # -------------------------------------------------------------------------------------
   describe "GET /cities" do
     let (:user) { create_user }
     let (:login_url) { '/login' }
     let (:cities_url) { '/v1/location/cities' }
 
+    # --------------------
+    # User logged in
+    # --------------------
     context 'When logged in' do
       before do
         login_with_api(user)
@@ -22,6 +28,9 @@ RSpec.describe "V1::Cities", type: :request do
       end
     end
 
+    # --------------------
+    # User not logged
+    # --------------------
     context 'When not logged in' do
       it 'returns 401' do
         city = FactoryBot.create(:location_city)
