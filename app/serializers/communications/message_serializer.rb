@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: communications_messages
@@ -16,7 +18,12 @@
 #
 #  fk_rails_...  (conversation_id => communications_conversations.id)
 #
-class Communications::MessageSerializer
-  include JSONAPI::Serializer
-  attributes 
+module Communications
+  # Returns the JSON Message object.
+  #
+  # set_key_transform :camel_lower - "some_key" => "someKey"
+  class MessageSerializer
+    include JSONAPI::Serializer
+    attributes
+  end
 end
