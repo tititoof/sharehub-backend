@@ -102,6 +102,17 @@ Rails.application.routes.draw do
         delete  '/albums/:album_id/media/:medium_id',   to: 'media#destroy'
       end
     end
+
+    # /communications
+    namespace :communications do
+      # /groups
+      namespace :groups do
+        # /conversations
+        get     '/:group_id/conversations',                   to: 'conversations#index'
+        post    '/:group_id/conversations',                   to: 'conversations#create'
+        delete  '/:group_id/conversations/:conversation_id',  to: 'conversations#destroy'
+      end
+    end
   end
   # Defines the root path route ("/")
   # root "articles#index"

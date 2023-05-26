@@ -49,6 +49,9 @@ module Users
     # Albums
     include Albumable
 
+    # Conversations
+    include Conversationable
+
     # Memberships users
     has_many :users,
              through: :memberships,

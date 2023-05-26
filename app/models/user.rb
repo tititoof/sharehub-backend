@@ -54,4 +54,7 @@ class User < ApplicationRecord
 
   # Albums
   include Albumable
+
+  # Conversations
+  include Conversationable
 end

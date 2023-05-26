@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_21_060852) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_25_040314) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -41,6 +41,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_21_060852) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "communications_conversations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "communications_messages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "conversation_id", null: false
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_communications_messages_on_conversation_id"
+  end
+
+  create_table "communications_participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "member_type", null: false
+    t.uuid "member_id", null: false
+    t.uuid "conversation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_communications_participants_on_conversation_id"
+    t.index ["member_type", "member_id"], name: "index_communications_participants_on_member"
   end
 
   create_table "galleries_albums", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -178,6 +202,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_21_060852) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "communications_messages", "communications_conversations", column: "conversation_id"
+  add_foreign_key "communications_participants", "communications_conversations", column: "conversation_id"
   add_foreign_key "galleries_media", "galleries_albums", column: "album_id"
   add_foreign_key "location_cities", "location_countries", column: "country_id"
   add_foreign_key "location_cities", "location_states", column: "state_id"
