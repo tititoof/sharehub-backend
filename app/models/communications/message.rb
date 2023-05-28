@@ -27,6 +27,9 @@ module Communications
     # Conversation
     belongs_to :conversation
 
+    # File - has one (ActiveStorage)
+    has_one_attached :file
+
     # ----------------------------------
     # --- Validations ---
     # ----------------------------------

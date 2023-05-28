@@ -11,7 +11,10 @@ module Conversationable
 
   included do
     # Participants (Conversation)
-    has_many :conversations_participants, as: :member, class_name: '::Communications::Participant', dependent: :destroy
+    has_many :conversations_participants,
+             as: :member,
+             class_name: '::Communications::Participant',
+             dependent: :destroy
 
     # Conversations - has_many
     has_many :conversations,

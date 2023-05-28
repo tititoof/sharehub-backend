@@ -24,6 +24,9 @@ module Communications
   # set_key_transform :camel_lower - "some_key" => "someKey"
   class MessageSerializer
     include JSONAPI::Serializer
-    attributes
+
+    set_key_transform :camel_lower
+
+    attributes :id, :content
   end
 end

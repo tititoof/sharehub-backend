@@ -12,15 +12,21 @@
 module Communications
   # Conversation is an ActiveRecord model representing a Conversation.
   class Conversation < ApplicationRecord
+    # ----------------------------------
+    # --- Constants ---
+    # ----------------------------------
+    # CLASS_NAME
     CLASS_NAME = '::Communications::Participant'
 
     # ----------------------------------
     # --- Relations ---
     # ----------------------------------
+    # Messages - has_many
+    has_many :messages, class_name: '::Communications::Message', dependent: :destroy
+
     # Participants (Conversation)
     has_many :conversations_participants,
-             as: :member,
-             class_name: CLASS_NAME,
+             class_name: '::Communications::Participant',
              dependent: :destroy
 
     # Groups - has_many
@@ -34,7 +40,7 @@ module Communications
     has_many :users,
              through: :conversations_participants,
              source: :member,
-             source_type: CLASS_NAME,
+             source_type: 'User',
              class_name: '::User'
 
     # Groups admins - has_many
