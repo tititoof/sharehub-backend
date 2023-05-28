@@ -2,7 +2,7 @@
 
 module V1
   module Communications
-    module Conversations
+    module Messages
       module Users
         # Authorize Conversation access for the current user
         class GroupPolicy < ApplicationPolicy
