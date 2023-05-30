@@ -39,26 +39,19 @@ Rails.application.routes.draw do
     put     'organizations/:organization_id',               to: 'organizations#update'
     delete  'organizations/:organization_id',               to: 'organizations#destroy'
 
-    # /users
-    namespace :users do
-      # /profiles
-      get   '/profiles',              to: 'profiles#index'
-      get   '/profiles/list',         to: 'profiles#list'
-      get   '/profiles/:profile_id',  to: 'profiles#show'
-      post  '/profiles',              to: 'profiles#save'
+    # /projects
+    get     'organizations/:organization_id/projects',                            to: 'projects#index'
+    get     'organizations/:organization_id/projects/:project_id',                to: 'projects#show'
+    post    'organizations/:organization_id/projects',                            to: 'projects#create'
+    post    'organizations/:organization_id/projects/:project_id/add-member',     to: 'projects#add_member'
+    post    'organizations/:organization_id/projects/:project_id/remove-member',  to: 'projects#remove_member'
+    put     'organizations/:organization_id/projects/:project_id',                to: 'projects#update'
+    delete  'organizations/:organization_id/projects/:project_id',                to: 'projects#destroy'
 
-      # /groups
-      get     '/groups',                          to: 'groups#index'
-      post    '/groups',                          to: 'groups#create'
-      get     '/groups/list',                     to: 'groups#list'
-      post    '/groups/:group_id/add-member',     to: 'groups#add_member'
-      post    '/groups/:group_id/remove-member',  to: 'groups#remove_member'
-      get     '/groups/:group_id',                to: 'groups#show'
-      put     '/groups/:group_id',                to: 'groups#update'
-      delete  '/groups/:group_id',                to: 'groups#destroy'
-    end
+    draw :users
 
     draw :galleries
+
     draw :communications
   end
   # Defines the root path route ("/")

@@ -52,6 +52,9 @@ gem 'pundit'
 # https://github.com/perfectline/validates_url
 gem "validate_url"
 
+# Date time validations
+gem 'validates_timeliness', '~> 7.0.0.beta2'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

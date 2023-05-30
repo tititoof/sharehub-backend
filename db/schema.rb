@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_25_040314) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_29_071908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -144,6 +144,32 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_25_040314) do
     t.index ["name"], name: "index_organizations_on_name", unique: true
   end
 
+  create_table "project_members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "member_id", null: false
+    t.uuid "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_project_members_on_member_id"
+    t.index ["project_id"], name: "index_project_members_on_project_id"
+  end
+
+  create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.date "start_at"
+    t.date "end_at"
+    t.string "status"
+    t.uuid "manager_id", null: false
+    t.string "external_references"
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "organization_id", null: false
+    t.index ["manager_id"], name: "index_projects_on_manager_id"
+    t.index ["organization_id", "title"], name: "index_projects_on_organization_id_and_title", unique: true
+    t.index ["organization_id"], name: "index_projects_on_organization_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -211,6 +237,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_25_040314) do
   add_foreign_key "organizations", "location_cities", column: "city_id"
   add_foreign_key "organizations", "location_countries", column: "country_id"
   add_foreign_key "organizations", "users", column: "admin_id"
+  add_foreign_key "project_members", "projects"
+  add_foreign_key "project_members", "users", column: "member_id"
+  add_foreign_key "projects", "organizations"
+  add_foreign_key "projects", "users", column: "manager_id"
   add_foreign_key "users_groups", "organizations"
   add_foreign_key "users_groups", "users", column: "admin_id"
   add_foreign_key "users_profiles", "location_cities", column: "city_id"
