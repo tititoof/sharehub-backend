@@ -325,7 +325,7 @@ RSpec.describe "V1::Organizations", type: :request do
         user  = FactoryBot.create(:user)
         project.members << user
 
-        post "#{organizations_url}/#{project.organization.id}/projects/#{project.id}/add-member",  params: {
+        post "#{organizations_url}/#{project.organization.id}/projects/#{project.id}/remove-member",  params: {
           project: { 
             member_id: user.id
           } }, headers: {
@@ -351,7 +351,7 @@ RSpec.describe "V1::Organizations", type: :request do
         user  = FactoryBot.create(:user)
         project.members << user
 
-        post "#{organizations_url}/#{project.organization.id}/projects/#{project.id}/add-member",  params: {
+        post "#{organizations_url}/#{project.organization.id}/projects/#{project.id}/remove-member",  params: {
           project: { 
             member_id: user.id
           } 

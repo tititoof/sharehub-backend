@@ -21,7 +21,7 @@ module V1
       def call
         member = ::User.find(@properties[:member_id])
 
-        @project.users.delete(member)
+        @project.members.delete(member)
         @project.save!
 
         { success: true, payload: @project }
