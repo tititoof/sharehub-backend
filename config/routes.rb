@@ -53,6 +53,23 @@ Rails.application.routes.draw do
     draw :galleries
 
     draw :communications
+
+    # /source_controls
+    namespace :source_controls do
+      # /giteas
+      get     'giteas',           to: 'giteas#index'
+      get     'giteas/:gitea_id', to: 'giteas#show'
+      post    'giteas',           to: 'giteas#create'
+      put     'giteas/:gitea_id', to: 'giteas#update'
+      delete  'giteas/:gitea_id', to: 'giteas#destroy'
+
+      # /repositories
+      get     'projects/:project_id/repositories',                to: 'repositories#index'
+      get     'projects/:project_id/repositories/:repository_id', to: 'repositories#show'
+      post    'projects/:project_id/repositories',                to: 'repositories#create'
+      put     'projects/:project_id/repositories/:repository_id', to: 'repositories#update'
+      delete  'projects/:project_id/repositories/:repository_id', to: 'repositories#destroy'
+    end
   end
   # Defines the root path route ("/")
   # root "articles#index"

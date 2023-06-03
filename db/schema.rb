@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_29_071908) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_01_052849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -170,6 +170,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_071908) do
     t.index ["organization_id"], name: "index_projects_on_organization_id"
   end
 
+  create_table "source_controls_giteas", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "api_url"
+    t.string "access_token"
+    t.string "ip_address"
+    t.integer "port"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "source_controls_repositories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "owner"
+    t.string "repo"
+    t.uuid "project_id", null: false
+    t.string "sourcable_type", null: false
+    t.uuid "sourcable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id", "name"], name: "index_source_controls_repositories_on_project_id_and_name", unique: true
+    t.index ["project_id"], name: "index_source_controls_repositories_on_project_id"
+    t.index ["sourcable_type", "sourcable_id"], name: "index_source_controls_repositories_on_sourcable"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -241,6 +264,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_071908) do
   add_foreign_key "project_members", "users", column: "member_id"
   add_foreign_key "projects", "organizations"
   add_foreign_key "projects", "users", column: "manager_id"
+  add_foreign_key "source_controls_repositories", "projects"
   add_foreign_key "users_groups", "organizations"
   add_foreign_key "users_groups", "users", column: "admin_id"
   add_foreign_key "users_profiles", "location_cities", column: "city_id"

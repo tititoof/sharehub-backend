@@ -51,6 +51,12 @@ class Project < ApplicationRecord
   # Members (Users)
   has_many :members, through: :project_members, dependent: :destroy
 
+  # Respositories
+  has_many :source_control_repositories, class_name: '::SourceControls::Repository', dependent: :destroy
+
+  # Giteas
+  has_many :giteas, through: :source_control_repositories, source: :sourcable, source_type: '::SourceControls::Gitea'
+
   # ----------------------------------
   # --- Validations ---
   # ----------------------------------

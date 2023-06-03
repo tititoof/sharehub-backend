@@ -28,13 +28,13 @@ module V1
       def call
         manager = ::User.find(@properties[:manager])
 
-        project.update!(title: @properties[:title], description: @properties[:description],
-                        start_at: @properties[:start_at], end_at: @properties[:end_at],
-                        status: @properties[:status], manager:,
-                        external_references: @properties[:external_references],
-                        category: @properties[:category])
+        @project.update!(title: @properties[:title], description: @properties[:description],
+                         start_at: @properties[:start_at], end_at: @properties[:end_at],
+                         status: @properties[:status], manager:,
+                         external_references: @properties[:external_references],
+                         category: @properties[:category])
 
-        { success: true, payload: project }
+        { success: true, payload: @project }
       rescue ActiveRecord::RecordInvalid => e
         { success: false, errors: e.record.errors.as_json, status: :unprocessable_entity }
       end
