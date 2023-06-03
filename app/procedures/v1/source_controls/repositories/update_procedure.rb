@@ -28,7 +28,7 @@ module V1
         def call
           sourcable = ::V1::SourceControls::Repositories::SetSourcableService.call(@properties[:sourcable_type],
                                                                                    @properties[:sourcable_id])
-          resource  = ::V1::SourceControls::Repositories::UpdateService.call(@project, @repository, 
+          resource  = ::V1::SourceControls::Repositories::UpdateService.call(@project, @repository,
                                                                              sourcable, @properties)
 
           { success: true, payload: resource[:payload] }
