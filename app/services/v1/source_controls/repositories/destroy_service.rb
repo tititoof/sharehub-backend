@@ -3,6 +3,12 @@
 module V1
   module SourceControls
     module Repositories
+      # Destroy a repository with the specified properties.
+      #
+      # repository - The repository to update
+      #
+      # Returns the newly updated Reposiroty object if the record was saved successfully,
+      # or error if validation failed.
       class DestroyService < ApplicationCallable
         attr_reader :repository
 

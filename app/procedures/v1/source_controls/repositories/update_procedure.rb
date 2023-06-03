@@ -3,6 +3,19 @@
 module V1
   module SourceControls
     module Repositories
+      # Update a repository with the specified properties.
+      #
+      # project - The project to update in repository
+      # repository - The repository to update
+      # properties - A Hash of attributes to set on the new conversation. The allowed keys are:
+      #               - name - name of the repository
+      #               - owner - owner of the repository
+      #               - repo - identifiant of the repository
+      #               - sourcable_type - source_controls type (Gitea / Forgejo / Github / Gitlab / ...)
+      #               - sourcable_id - the id of the source_controls
+      #
+      # Returns the newly updated Reposiroty object if the record was saved successfully,
+      # or error if validation failed.
       class UpdateProcedure < ApplicationCallable
         attr_reader :project, :repository, :properties
 
