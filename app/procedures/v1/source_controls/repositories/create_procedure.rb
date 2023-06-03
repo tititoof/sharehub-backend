@@ -24,19 +24,16 @@ module V1
         end
 
         def call
-          resource = ::V1::SourceControls::Repositories::CreateService.call(@project,
-                                                                            set_sourcable_type,
-                                                                            @properties)
+          sourcable = ::V1::SourceControls::Repositories::SetSourcableService.call(@properties[:sourcable_type],
+                                                                                   @properties[:sourcable_id])
+          resource  = ::V1::SourceControls::Repositories::CreateService.call(@project, sourcable,
+                                                                             @properties)
 
           { success: true, payload: resource[:payload] }
         rescue ActiveRecord::RecordNotFound => _e
           { success: false, errors: 'repository.notFound' }
-        end
-
-        def set_sourcable_type
-          if @properties[:sourcable_type] == 'Gitea'
-            ::SourceControls::Gitea.find(@properties[:sourcable_id])
-          end
+        rescue ArgumentError => e
+          { success: false, errors: e.message, status: :unprocessable_entity }
         end
       end
     end
