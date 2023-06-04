@@ -2,13 +2,24 @@
 #
 # Table name: source_controls_giteas
 #
-#  id           :uuid             not null, primary key
-#  access_token :string
-#  api_url      :string
-#  ip_address   :string
-#  port         :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id              :uuid             not null, primary key
+#  access_token    :string
+#  api_url         :string
+#  ip_address      :string
+#  name            :string
+#  port            :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  organization_id :uuid             not null
+#
+# Indexes
+#
+#  index_source_controls_giteas_on_organization_id           (organization_id)
+#  index_source_controls_giteas_on_organization_id_and_name  (organization_id,name) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (organization_id => organizations.id)
 #
 require 'rails_helper'
 
@@ -45,6 +56,18 @@ RSpec.describe SourceControls::Gitea, type: :model do
 
   it 'is not valid without port' do
     subject.port = nil
+
+    expect(subject).not_to be_valid
+  end
+
+  it 'is not valid without name' do
+    subject.name = nil
+
+    expect(subject).not_to be_valid
+  end
+
+  it 'is not valid without organization' do
+    subject.organization = nil
 
     expect(subject).not_to be_valid
   end

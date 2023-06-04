@@ -57,11 +57,11 @@ Rails.application.routes.draw do
     # /source_controls
     namespace :source_controls do
       # /giteas
-      get     'giteas',           to: 'giteas#index'
-      get     'giteas/:gitea_id', to: 'giteas#show'
-      post    'giteas',           to: 'giteas#create'
-      put     'giteas/:gitea_id', to: 'giteas#update'
-      delete  'giteas/:gitea_id', to: 'giteas#destroy'
+      get     'organizations/:organization_id/giteas',           to: 'giteas#index'
+      get     'organizations/:organization_id/giteas/:gitea_id', to: 'giteas#show'
+      post    'organizations/:organization_id/giteas',           to: 'giteas#create'
+      put     'organizations/:organization_id/giteas/:gitea_id', to: 'giteas#update'
+      delete  'organizations/:organization_id/giteas/:gitea_id', to: 'giteas#destroy'
 
       # /repositories
       get     'projects/:project_id/repositories',                to: 'repositories#index'

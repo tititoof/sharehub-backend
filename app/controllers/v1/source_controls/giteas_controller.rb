@@ -6,6 +6,8 @@ module V1
     class GiteasController < ApplicationController
       # force current_user to be authenticate
       before_action :authenticate_user!
+      # find organization before all actions
+      before_action :set_organization
       # find gitea before actions
       before_action :set_gitea, only: %i[show update destroy]
 
@@ -22,7 +24,7 @@ module V1
       end
 
       def create
-        @resource = V1::SourceControls::Giteas::CreateService.call(gitea_params)
+        @resource = V1::SourceControls::Giteas::CreateService.call(@organization, gitea_params)
 
         serializer_response(::SourceControls::GiteaSerializer)
       end
@@ -47,8 +49,14 @@ module V1
         { success: false, errors: 'gitea.notFound' }
       end
 
+      def set_organization
+        @organization = Organization.find(params[:organization_id])
+      rescue ActiveRecord::RecordNotFound => _e
+        { success: false, errors: 'organization.notFound' }
+      end
+
       def gitea_params
-        params.required(:gitea).permit(:access_token, :api_url, :ip_address, :port)
+        params.required(:gitea).permit(:access_token, :api_url, :ip_address, :port, :name)
       end
     end
   end

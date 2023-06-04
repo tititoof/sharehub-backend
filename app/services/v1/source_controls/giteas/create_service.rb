@@ -14,16 +14,18 @@ module V1
       # Returns the newly created Gitea object if the record was saved successfully,
       # or error if validation failed.
       class CreateService < ApplicationCallable
-        attr_reader :properties
+        attr_reader :organization, :properties
 
-        def initialize(properties)
+        def initialize(organization, properties)
+          @organization = organization
           @properties = properties
         end
 
         def call
           gitea = ::SourceControls::Gitea.create!(access_token: @properties[:access_token],
-                                                  api_url: @properties[:api_url],
-                                                  ip_address: @properties[:ip_address], port: @properties[:port])
+                                                  api_url: @properties[:api_url], name: @properties[:name],
+                                                  ip_address: @properties[:ip_address], port: @properties[:port],
+                                                  organization: @organization)
 
           { success: true, payload: gitea }
         rescue ActiveRecord::RecordInvalid => e

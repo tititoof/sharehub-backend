@@ -24,7 +24,7 @@ module V1
 
         def call
           @gitea.update!(access_token: @properties[:access_token],
-                         api_url: @properties[:api_url],
+                         api_url: @properties[:api_url], name: @properties[:name],
                          ip_address: @properties[:ip_address], port: @properties[:port])
 
           { success: true, payload: @gitea }
