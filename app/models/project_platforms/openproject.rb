@@ -22,6 +22,7 @@
 #  fk_rails_...  (organization_id => organizations.id)
 #
 module ProjectPlatforms
+  # Openproject is an ActiveRecord model representing a Openproject server.
   class Openproject < ApplicationRecord
     # ----------------------------------
     # --- Relations ---

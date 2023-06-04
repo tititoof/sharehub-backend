@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: project_platforms_managements
@@ -22,6 +24,8 @@
 #  fk_rails_...  (project_id => projects.id)
 #
 module ProjectPlatforms
+  # Management is an ActiveRecord model representing a link between Project and ProjectPlatforms server
+  # (Openproject / Refmine / ...).
   class Management < ApplicationRecord
     # ----------------------------------
     # --- Relations ---
@@ -40,7 +44,7 @@ module ProjectPlatforms
     validates :name,
               length: { in: 4..60, too_long: :tooLong,
                         too_short: :tooShort }
-    
+
     # Project name
     validates :project_name, presence: { message: :required }
     validates :project_name, uniqueness: { scope: :project_id, message: :notUnique }
