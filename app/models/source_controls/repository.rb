@@ -33,7 +33,7 @@ module SourceControls
     # Project - belongs to
     belongs_to :project, class_name: '::Project'
 
-    # Sourcable - belongs to
+    # Sourcable - belongs to (Gitea / Gitlab / Github / ...)
     belongs_to :sourcable, polymorphic: true
 
     # ----------------------------------

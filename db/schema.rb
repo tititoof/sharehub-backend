@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_03_154752) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_04_072148) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -153,6 +153,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_03_154752) do
     t.index ["project_id"], name: "index_project_members_on_project_id"
   end
 
+  create_table "project_platforms_managements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "project_name"
+    t.uuid "project_id", null: false
+    t.string "platformable_type", null: false
+    t.uuid "platformable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["platformable_type", "platformable_id"], name: "index_project_platforms_managements_on_platformable"
+    t.index ["project_id", "project_name"], name: "managements_index_on_project_id_and_project_name", unique: true
+    t.index ["project_id"], name: "index_project_platforms_managements_on_project_id"
+  end
+
+  create_table "project_platforms_openprojects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "api_url"
+    t.uuid "organization_id", null: false
+    t.string "access_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id", "name"], name: "openprojects_index_on_organization_id_and_name", unique: true
+    t.index ["organization_id"], name: "index_project_platforms_openprojects_on_organization_id"
+  end
+
   create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -280,6 +304,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_03_154752) do
   add_foreign_key "organizations", "users", column: "admin_id"
   add_foreign_key "project_members", "projects"
   add_foreign_key "project_members", "users", column: "member_id"
+  add_foreign_key "project_platforms_managements", "projects"
+  add_foreign_key "project_platforms_openprojects", "organizations"
   add_foreign_key "projects", "organizations"
   add_foreign_key "projects", "users", column: "manager_id"
   add_foreign_key "source_controls_giteas", "organizations"
