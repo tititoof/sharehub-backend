@@ -139,7 +139,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'simplecov-json'
 
-  # Validate uniquess and presence
+  # Validate associations
   gem 'shoulda-matchers'
 end
 
