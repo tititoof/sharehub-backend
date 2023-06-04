@@ -23,19 +23,26 @@ require 'rails_helper'
 RSpec.describe ProjectMember, type: :model do
   subject { FactoryBot.create(:project_member) }
 
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
+  describe 'attributs' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid without member' do
+      subject.member = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without project' do
+      subject.project = nil
+
+      expect(subject).not_to be_valid
+    end
   end
 
-  it 'is not valid without member' do
-    subject.member = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without project' do
-    subject.project = nil
-
-    expect(subject).not_to be_valid
+  describe 'associations' do
+    it { should belong_to(:member).class_name('User') }
+    it { should belong_to(:project).class_name('Project') }
   end
 end

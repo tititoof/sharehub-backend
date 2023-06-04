@@ -411,7 +411,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   ruby-vips
-  shoulda-matchers
+  shoulda-matchers (~> 5.0)
   simplecov
   simplecov-json
   solargraph

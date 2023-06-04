@@ -38,13 +38,22 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   subject { FactoryBot.create(:user) }
 
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
+  describe 'attributs' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid without email' do
+      subject.email = nil
+
+      expect(subject).not_to be_valid
+    end
   end
 
-  it 'is not valid without email' do
-    subject.email = nil
-
-    expect(subject).not_to be_valid
+  describe 'associations' do
+    it { should have_one(:profile).class_name('Users::Profile') }
+    it { should have_many(:memberships).class_name('::Users::Membership') }
+    it { should have_many(:groups).class_name('::Users::Group') }
+    it { should have_many(:organizations).class_name('Organization') }
   end
 end
