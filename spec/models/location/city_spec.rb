@@ -26,25 +26,32 @@ require 'rails_helper'
 RSpec.describe Location::City, type: :model do
   subject { FactoryBot.create(:location_city) }
 
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
+  describe 'attributs' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid without name' do
+      subject.name = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without latitude' do
+      subject.latitude = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without longitude' do
+      subject.longitude = nil
+
+      expect(subject).not_to be_valid
+    end
   end
 
-  it 'is not valid without name' do
-    subject.name = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without latitude' do
-    subject.latitude = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without longitude' do
-    subject.longitude = nil
-
-    expect(subject).not_to be_valid
+  describe 'associations' do
+    it { should belong_to(:country).class_name('::Location::Country') }
+    it { should belong_to(:state).class_name('::Location::State') }
   end
 end

@@ -23,37 +23,44 @@ require 'rails_helper'
 RSpec.describe Communications::Participant, type: :model do
   subject { FactoryBot.create(:communications_participant) }
 
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
+  describe 'attributs' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid without member' do
+      subject.member = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without conversation' do
+      subject.conversation = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    subject { FactoryBot.create(:communications_participant_group) }
+    
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid without member' do
+      subject.member = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without conversation' do
+      subject.conversation = nil
+
+      expect(subject).not_to be_valid
+    end
   end
 
-  it 'is not valid without member' do
-    subject.member = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without conversation' do
-    subject.conversation = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  subject { FactoryBot.create(:communications_participant_group) }
-  
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
-  end
-
-  it 'is not valid without member' do
-    subject.member = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without conversation' do
-    subject.conversation = nil
-
-    expect(subject).not_to be_valid
+  describe 'associations' do
+    it { should belong_to(:conversation).class_name('::Communications::Conversation') }
+    it { should belong_to(:member) }
   end
 end

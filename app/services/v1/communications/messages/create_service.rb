@@ -13,15 +13,17 @@ module V1
       # Returns the newly created Message object if the record was saved successfully,
       # or error if validation failed.
       class CreateService < ApplicationCallable
-        attr_reader :conversation, :properties
+        attr_reader :conversation, :properties, :current_user
 
-        def initialize(conversation, properties)
+        def initialize(conversation, current_user, properties)
           @conversation = conversation
           @properties   = properties
+          @current_user = current_user
         end
 
         def call
-          message = ::Communications::Message.create!(content: @properties[:content], conversation: @conversation)
+          message = ::Communications::Message.create!(content: @properties[:content], 
+                                                      user: current_user, conversation: @conversation)
 
           message.file.attach(@properties[:medium]) if @properties[:medium]
 

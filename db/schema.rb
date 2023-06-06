@@ -51,10 +51,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_04_072148) do
 
   create_table "communications_messages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "conversation_id", null: false
+    t.uuid "user_id", null: false
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["conversation_id"], name: "index_communications_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_communications_messages_on_user_id"
   end
 
   create_table "communications_participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -294,6 +296,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_04_072148) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "communications_messages", "communications_conversations", column: "conversation_id"
+  add_foreign_key "communications_messages", "users"
   add_foreign_key "communications_participants", "communications_conversations", column: "conversation_id"
   add_foreign_key "galleries_media", "galleries_albums", column: "album_id"
   add_foreign_key "location_cities", "location_countries", column: "country_id"

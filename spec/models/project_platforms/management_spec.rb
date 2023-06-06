@@ -26,31 +26,38 @@ require 'rails_helper'
 RSpec.describe ProjectPlatforms::Management, type: :model do
   subject { FactoryBot.create(:project_platforms_management) }
 
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
+  describe 'attributs' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid without name' do
+      subject.name = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without project_name' do
+      subject.project_name = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without project' do
+      subject.project = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without platformable' do
+      subject.platformable = nil
+
+      expect(subject).not_to be_valid
+    end
   end
 
-  it 'is not valid without name' do
-    subject.name = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without project_name' do
-    subject.project_name = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without project' do
-    subject.project = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without platformable' do
-    subject.platformable = nil
-
-    expect(subject).not_to be_valid
+  describe 'associations' do
+    it { should belong_to(:project).class_name('::Project') }
+    it { should belong_to(:platformable) }
   end
 end

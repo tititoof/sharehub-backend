@@ -20,37 +20,44 @@ require 'rails_helper'
 RSpec.describe Location::Country, type: :model do
   subject { FactoryBot.create(:location_country) }
 
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
+  describe 'attributs' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid without name' do
+      subject.name = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without latitude' do
+      subject.latitude = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without longitude' do
+      subject.longitude = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without emoji' do
+      subject.emoji = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without code' do
+      subject.code = nil
+
+      expect(subject).not_to be_valid
+    end
   end
 
-  it 'is not valid without name' do
-    subject.name = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without latitude' do
-    subject.latitude = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without longitude' do
-    subject.longitude = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without emoji' do
-    subject.emoji = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without code' do
-    subject.code = nil
-
-    expect(subject).not_to be_valid
+  describe 'associations' do
+    it { should have_many(:states).class_name('::Location::State') }
+    it { should have_many(:cities).class_name('::Location::City') }
   end
 end

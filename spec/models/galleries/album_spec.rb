@@ -19,28 +19,35 @@ require 'rails_helper'
 
 RSpec.describe Galleries::Album, type: :model do
   describe "Group" do
-    subject { FactoryBot.create(:galleries_album_group) }
+    describe 'attributs' do
+      subject { FactoryBot.create(:galleries_album_group) }
 
-    it 'is valid with valid attributes' do
-      expect(subject).to be_valid
+      it 'is valid with valid attributes' do
+        expect(subject).to be_valid
+      end
+
+      it 'is not valid without description' do
+        subject.description = nil
+    
+        expect(subject).not_to be_valid
+      end
+    
+      it 'is not valid with aasm_state' do
+        subject.aasm_state = "wrong enum"
+    
+        expect(subject).not_to be_valid
+      end
+    
+      it 'is not valid without title' do
+        subject.title = nil
+    
+        expect(subject).not_to be_valid
+      end
     end
 
-    it 'is not valid without description' do
-      subject.description = nil
-  
-      expect(subject).not_to be_valid
-    end
-  
-    it 'is not valid with aasm_state' do
-      subject.aasm_state = "wrong enum"
-  
-      expect(subject).not_to be_valid
-    end
-  
-    it 'is not valid without title' do
-      subject.title = nil
-  
-      expect(subject).not_to be_valid
+    describe 'associations' do
+      it { should belong_to(:albumable) }
+      it { should have_many(:media).class_name('::Galleries::Medium') }
     end
   end
 

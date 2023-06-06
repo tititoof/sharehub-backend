@@ -27,26 +27,32 @@ require 'rails_helper'
 RSpec.describe Users::Group, type: :model do
   subject { FactoryBot.create(:users_group) }
 
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
+  describe 'attributs' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid without description' do
+      subject.description = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid with wrong kind' do
+      subject.kind = "wrong enum"
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without name' do
+      subject.name = nil
+
+      expect(subject).not_to be_valid
+    end
   end
 
-  it 'is not valid without description' do
-    subject.description = nil
-
-    expect(subject).not_to be_valid
+  describe 'associations' do
+    it { should belong_to(:admin).class_name('::User') }
+    it { should belong_to(:organization).class_name('::Organization') }
   end
-
-  it 'is not valid with wrong kind' do
-    subject.kind = "wrong enum"
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without name' do
-    subject.name = nil
-
-    expect(subject).not_to be_valid
-  end
-
 end

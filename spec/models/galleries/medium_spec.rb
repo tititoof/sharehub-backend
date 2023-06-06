@@ -31,15 +31,22 @@ RSpec.describe Galleries::Medium, type: :model do
     ::File.new(file.path)
   end
 
-  it 'is valid with valid attributes' do
-    subject.file.attach(io: image_file, filename: 'test')
+  describe 'attributs' do
+    it 'is valid with valid attributes' do
+      subject.file.attach(io: image_file, filename: 'test')
 
-    expect(subject).to be_valid
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid without album' do
+      subject.album = nil
+
+      expect(subject).not_to be_valid
+    end
   end
 
-  it 'is not valid without album' do
-    subject.album = nil
-
-    expect(subject).not_to be_valid
+  describe 'associations' do
+    it { should belong_to(:album).class_name('::Galleries::Album') }
+    it { should have_one_attached(:file) }
   end
 end

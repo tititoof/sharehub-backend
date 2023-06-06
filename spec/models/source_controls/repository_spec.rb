@@ -27,25 +27,32 @@ require 'rails_helper'
 RSpec.describe SourceControls::Repository, type: :model do
   subject { FactoryBot.create(:source_controls_repository) }
 
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
+  describe 'attributs' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid without name' do
+      subject.name = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without owner' do
+      subject.owner = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without repo' do
+      subject.repo = nil
+
+      expect(subject).not_to be_valid
+    end
   end
 
-  it 'is not valid without name' do
-    subject.name = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without owner' do
-    subject.owner = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without repo' do
-    subject.repo = nil
-
-    expect(subject).not_to be_valid
+  describe 'associations' do
+    it { should belong_to(:project).class_name('::Project') }
+    it { should belong_to(:sourcable) }
   end
 end

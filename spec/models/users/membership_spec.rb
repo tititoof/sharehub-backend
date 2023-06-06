@@ -21,20 +21,27 @@ RSpec.describe Users::Membership, type: :model do
   describe "Group" do
     subject { FactoryBot.create(:users_membership_group) }
 
-    it 'is valid with valid attributes' do
-      expect(subject).to be_valid
+    describe 'attributs' do
+      it 'is valid with valid attributes' do
+        expect(subject).to be_valid
+      end
+
+      it 'is not valid without user' do
+        subject.member = nil
+    
+        expect(subject).not_to be_valid
+      end
+
+      it 'is not valid without group' do
+        subject.joinable = nil
+    
+        expect(subject).not_to be_valid
+      end
     end
 
-    it 'is not valid without user' do
-      subject.member = nil
-  
-      expect(subject).not_to be_valid
-    end
-
-    it 'is not valid without group' do
-      subject.joinable = nil
-  
-      expect(subject).not_to be_valid
+    describe 'associations' do
+      it { should belong_to(:member) }
+      it { should belong_to(:joinable) }
     end
   end
 

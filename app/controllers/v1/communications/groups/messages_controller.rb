@@ -26,7 +26,7 @@ module V1
         def create
           authorize [:v1, :communications, :conversations, @group]
 
-          @resource = V1::Communications::Messages::CreateService.call(@conversation, message_params)
+          @resource = V1::Communications::Messages::CreateService.call(@conversation, current_user, message_params)
 
           serializer_response(::Communications::MessageSerializer)
         end

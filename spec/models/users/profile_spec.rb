@@ -31,31 +31,38 @@ require 'rails_helper'
 RSpec.describe Users::Profile, type: :model do
   subject { FactoryBot.create(:users_profile) }
 
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
+  describe 'attributs' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid with wrong age' do
+      subject.date_of_birth = Faker::Date.in_date_period
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without first_name' do
+      subject.first_name = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without last_name' do
+      subject.last_name = nil
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without nickname' do
+      subject.nickname = nil
+
+      expect(subject).not_to be_valid
+    end
   end
 
-  it 'is not valid with wrong age' do
-    subject.date_of_birth = Faker::Date.in_date_period
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without first_name' do
-    subject.first_name = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without last_name' do
-    subject.last_name = nil
-
-    expect(subject).not_to be_valid
-  end
-
-  it 'is not valid without nickname' do
-    subject.nickname = nil
-
-    expect(subject).not_to be_valid
+  describe 'associations' do
+    it { should belong_to(:city).class_name('::Location::City') }
+    it { should belong_to(:user).class_name('::User') }
   end
 end
