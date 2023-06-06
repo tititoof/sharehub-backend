@@ -19,6 +19,7 @@ RSpec.describe "V1::SourceControls::Giteas", type: :request do
 
       it 'returns giteas serialized' do
         organization = FactoryBot.create(:organization)
+        organization.users << user
         gitea        = FactoryBot.create(:source_controls_gitea, organization:)
 
         get "#{test_url}/#{organization.id}/giteas", headers: {
@@ -59,6 +60,7 @@ RSpec.describe "V1::SourceControls::Giteas", type: :request do
 
       it 'returns giteas serialized' do
         organization = FactoryBot.create(:organization)
+        organization.users << user
         gitea        = FactoryBot.create(:source_controls_gitea, organization:)
 
         get "#{test_url}/#{organization.id}/giteas/#{gitea.id}", headers: {
@@ -99,6 +101,8 @@ RSpec.describe "V1::SourceControls::Giteas", type: :request do
 
       it 'returns gitea serialized' do
         organization = FactoryBot.create(:organization)
+        organization.admin = user
+        organization.save!
 
         post "#{test_url}/#{organization.id}/giteas", params: {
           gitea: { 
@@ -151,6 +155,8 @@ RSpec.describe "V1::SourceControls::Giteas", type: :request do
 
       it 'returns project serialized' do
         organization = FactoryBot.create(:organization)
+        organization.admin = user
+        organization.save!
         gitea        = FactoryBot.create(:source_controls_gitea, organization:)
 
         put "#{test_url}/#{organization.id}/giteas/#{gitea.id}", params: {
@@ -205,6 +211,8 @@ RSpec.describe "V1::SourceControls::Giteas", type: :request do
 
       it 'returns done : ok' do
         organization = FactoryBot.create(:organization)
+        organization.admin = user
+        organization.save!
         gitea        = FactoryBot.create(:source_controls_gitea, organization:)
 
         delete "#{test_url}/#{organization.id}/giteas/#{gitea.id}", headers: {

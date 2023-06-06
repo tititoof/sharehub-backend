@@ -12,30 +12,40 @@ module V1
       before_action :set_repository, only: %i[show update destroy]
 
       def index
+        authorize [:v1, @project]
+
         @resource = { success: true, payload: @project.source_control_repositories }
 
         serializer_response(::SourceControls::RepositorySerializer)
       end
 
       def show
+        authorize [:v1, @project]
+
         @resource = { success: true, payload: @repository }
 
         serializer_response(::SourceControls::RepositorySerializer)
       end
 
       def create
+        authorize [:v1, @project]
+
         @resource = V1::SourceControls::Repositories::CreateProcedure.call(@project, repository_params)
 
         serializer_response(::SourceControls::RepositorySerializer)
       end
 
       def update
+        authorize [:v1, @project]
+
         @resource = V1::SourceControls::Repositories::UpdateProcedure.call(@project, @repository, repository_params)
 
         serializer_response(::SourceControls::RepositorySerializer)
       end
 
       def destroy
+        authorize [:v1, @project]
+
         @resource = V1::SourceControls::Repositories::DestroyService.call(@repository)
 
         object_response

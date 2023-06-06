@@ -12,30 +12,40 @@ module V1
 
     # return current_user serialized
     def index
+      authorize [:v1, @organization]
+
       @resource = { success: true, payload: @organization.projects }
 
       serializer_response(::ProjectSerializer)
     end
 
     def show
+      authorize [:v1, @organization]
+
       @resource = { success: true, payload: @project }
 
       serializer_response(::ProjectSerializer)
     end
 
     def create
+      authorize [:v1, @organization]
+
       @resource = ::V1::Projects::CreateService.call(@organization, project_params)
 
       serializer_response(::ProjectSerializer)
     end
 
     def update
+      authorize [:v1, @organization]
+
       @resource = ::V1::Projects::UpdateService.call(@project, project_params)
 
       serializer_response(::ProjectSerializer)
     end
 
     def destroy
+      authorize [:v1, @organization]
+
       @resource = ::V1::Projects::DestroyService.call(@project)
 
       object_response
@@ -43,6 +53,8 @@ module V1
 
     # Add member to a project
     def add_member
+      authorize [:v1, @organization]
+
       @resource = V1::Projects::AddMemberService.call(@project, project_params)
 
       serializer_response(::ProjectSerializer)
@@ -50,6 +62,8 @@ module V1
 
     # Remove member from a project
     def remove_member
+      authorize [:v1, @organization]
+
       @resource = V1::Projects::RemoveMemberService.call(@project, project_params)
 
       serializer_response(::ProjectSerializer)

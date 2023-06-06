@@ -20,6 +20,8 @@ RSpec.describe "V1::Organizations", type: :request do
 
       it 'returns projects serialized' do
         project = FactoryBot.create(:project)
+        project.organization.users << user
+        project.organization.save!
 
         get "#{organizations_url}/#{project.organization.id}/projects", headers: {
           'Authorization': response.headers['Authorization']
@@ -59,6 +61,8 @@ RSpec.describe "V1::Organizations", type: :request do
 
       it 'returns organizations serialized' do
         project = FactoryBot.create(:project)
+        project.organization.users << user
+        project.organization.save!
 
         get "#{organizations_url}/#{project.organization.id}/projects/#{project.id}", headers: {
           'Authorization': response.headers['Authorization']
@@ -158,6 +162,8 @@ RSpec.describe "V1::Organizations", type: :request do
 
       it 'returns project serialized' do
         project = FactoryBot.create(:project)
+        project.organization.admin = user
+        project.organization.save!
 
         put "#{organizations_url}/#{project.organization.id}/projects/#{project.id}", params: {
           project: { 
@@ -218,6 +224,8 @@ RSpec.describe "V1::Organizations", type: :request do
 
       it 'returns done : ok' do
         project = FactoryBot.create(:project)
+        project.organization.admin = user
+        project.organization.save!
 
         delete "#{organizations_url}/#{project.organization.id}/projects/#{project.id}", headers: {
             'Authorization': response.headers['Authorization']
@@ -270,11 +278,13 @@ RSpec.describe "V1::Organizations", type: :request do
 
       it 'returns project serialized' do
         project = FactoryBot.create(:project)
-        user  = FactoryBot.create(:user)
+        project.organization.admin = user
+        project.organization.save!
+        member  = FactoryBot.create(:user)
 
         post "#{organizations_url}/#{project.organization.id}/projects/#{project.id}/add-member",  params: {
           project: { 
-            member_id: user.id
+            member_id: member.id
           } }, headers: {
           'Authorization': response.headers['Authorization']
         }
@@ -322,12 +332,14 @@ RSpec.describe "V1::Organizations", type: :request do
 
       it 'returns all groups serialized' do
         project = FactoryBot.create(:project)
-        user  = FactoryBot.create(:user)
-        project.members << user
+        project.organization.admin = user
+        project.organization.save!
+        member  = FactoryBot.create(:user)
+        project.members << member
 
         post "#{organizations_url}/#{project.organization.id}/projects/#{project.id}/remove-member",  params: {
           project: { 
-            member_id: user.id
+            member_id: member.id
           } }, headers: {
           'Authorization': response.headers['Authorization']
         }

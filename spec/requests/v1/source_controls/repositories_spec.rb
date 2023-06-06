@@ -105,7 +105,8 @@ RSpec.describe "V1::SourceControls::Repositories", type: :request do
 
       it 'returns gitea serialized' do
         project = FactoryBot.create(:project)
-        project.members << user
+        project.manager = user
+        project.save!
         gitea   = FactoryBot.create(:source_controls_gitea)
 
         post "#{test_url}/#{project.id}/repositories", params: {
@@ -164,7 +165,8 @@ RSpec.describe "V1::SourceControls::Repositories", type: :request do
 
       it 'returns project serialized' do
         project = FactoryBot.create(:project)
-        project.members << user
+        project.manager = user
+        project.save!
         repository = FactoryBot.create(:source_controls_repository, project:)
         gitea   = FactoryBot.create(:source_controls_gitea)
 
@@ -225,7 +227,8 @@ RSpec.describe "V1::SourceControls::Repositories", type: :request do
 
       it 'returns done : ok' do
         project = FactoryBot.create(:project)
-        project.members << user
+        project.manager = user
+        project.save!
         repository = FactoryBot.create(:source_controls_repository, project:)
 
         delete "#{test_url}/#{project.id}/repositories/#{repository.id}", headers: {
