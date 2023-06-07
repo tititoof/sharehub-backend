@@ -61,9 +61,9 @@ class Project < ApplicationRecord
   has_many :project_platforms, class_name: 'ProjectPlatforms::Management', dependent: :destroy
 
   # Openprojects
-  has_many :openprojects, 
-           through: :project_platform, 
-           source: :platformable, 
+  has_many :openprojects,
+           through: :project_platform,
+           source: :platformable,
            source_type: '::ProjectPlatforms::Openproject'
 
   # ----------------------------------

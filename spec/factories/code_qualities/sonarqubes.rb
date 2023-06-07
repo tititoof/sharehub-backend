@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: project_platforms_openprojects
+# Table name: code_qualities_sonarqubes
 #
 #  id              :uuid             not null, primary key
 #  access_token    :string
@@ -12,15 +12,15 @@
 #
 # Indexes
 #
-#  index_project_platforms_openprojects_on_organization_id  (organization_id)
-#  openprojects_index_on_organization_id_and_name           (organization_id,name) UNIQUE
+#  index_code_qualities_sonarqubes_on_organization_id  (organization_id)
+#  sonarqubes_index_on_organization_id_and_name        (organization_id,name) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_...  (organization_id => organizations.id)
 #
 FactoryBot.define do
-  factory :project_platforms_openproject, class: 'ProjectPlatforms::Openproject' do
+  factory :code_qualities_sonarqube, class: 'CodeQualities::Sonarqube' do
     name { Faker::FunnyName.name }
     api_url { Faker::Internet.url }
     access_token { Faker::Internet.uuid }

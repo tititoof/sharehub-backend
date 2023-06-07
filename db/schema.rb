@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_04_072148) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_07_055941) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -41,6 +41,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_04_072148) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "code_qualities_managements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "project_name"
+    t.uuid "project_id", null: false
+    t.string "qualitable_type", null: false
+    t.uuid "qualitable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id", "project_name"], name: "cq_managements_index_on_project_id_and_project_name", unique: true
+    t.index ["project_id"], name: "index_code_qualities_managements_on_project_id"
+    t.index ["qualitable_type", "qualitable_id"], name: "index_code_qualities_managements_on_qualitable"
+  end
+
+  create_table "code_qualities_sonarqubes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "access_token"
+    t.string "api_url"
+    t.string "name"
+    t.uuid "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id", "name"], name: "sonarqubes_index_on_organization_id_and_name", unique: true
+    t.index ["organization_id"], name: "index_code_qualities_sonarqubes_on_organization_id"
   end
 
   create_table "communications_conversations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -295,6 +319,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_04_072148) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "code_qualities_managements", "projects"
+  add_foreign_key "code_qualities_sonarqubes", "organizations"
   add_foreign_key "communications_messages", "communications_conversations", column: "conversation_id"
   add_foreign_key "communications_messages", "users"
   add_foreign_key "communications_participants", "communications_conversations", column: "conversation_id"
