@@ -22,7 +22,7 @@ module V1
         end
 
         def call
-          message = ::Communications::Message.create!(content: @properties[:content], 
+          message = ::Communications::Message.create!(content: @properties[:content],
                                                       user: current_user, conversation: @conversation)
 
           message.file.attach(@properties[:medium]) if @properties[:medium]

@@ -58,10 +58,13 @@ class Project < ApplicationRecord
   has_many :giteas, through: :source_control_repositories, source: :sourcable, source_type: '::SourceControls::Gitea'
 
   # Project platforms
-  has_many :project_platforms, class_name: 'ProjectPlatforms::Management'
+  has_many :project_platforms, class_name: 'ProjectPlatforms::Management', dependent: :destroy
 
   # Openprojects
-  has_many :openprojects, through: :project_platform, source: :platformable, source_type: '::ProjectPlatforms::Openproject'
+  has_many :openprojects, 
+           through: :project_platform, 
+           source: :platformable, 
+           source_type: '::ProjectPlatforms::Openproject'
 
   # ----------------------------------
   # --- Validations ---
