@@ -1,0 +1,6 @@
+projectKey=sharehub-backend-dev
+serverUrl=http://192.168.1.223:9000
+serverVersion=9.9.1.69595
+dashboardUrl=http://192.168.1.223:9000/dashboard?id=sharehub-backend-dev
+ceTaskId=AYlJQ0jeRr8vaAmStoqA
+ceTaskUrl=http://192.168.1.223:9000/api/ce/task?id=AYlJQ0jeRr8vaAmStoqA
