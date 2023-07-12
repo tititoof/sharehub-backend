@@ -33,6 +33,7 @@ AllCops:
     - app/datatables/*
     - Gemfile
     - bundle/**/*
+    - lib/tasks/auto_annotate_models.rake
 
 Layout/SpaceAroundMethodCallOperator:
   Enabled: true
