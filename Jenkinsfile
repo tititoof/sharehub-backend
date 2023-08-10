@@ -1,8 +1,7 @@
 pipeline {
     agent {
-        docker {
-            image 'ruby:3.2' // Utilisez la version de Ruby souhaitée
-            args '-v .:/app' // Montez le répertoire de votre application dans le conteneur
+        node {
+            label 'agent_rails'
         }
     }
     environment { 
@@ -12,16 +11,18 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                sh '''
-                    . ~/.rvm/scripts/rvm
-                    rvm install ruby-3.2.2
-                    rvm use ruby-3.2.2
-                    rvm -v
-                    ruby -v
-                    gem -v
-                    gem install bundler
-                    bundle update --bundler
-                '''
+                script {
+                    sh("""
+                        sudo apt install rvm
+                        . ~/.rvm/scripts/rvm &> /dev/null
+                        rvm install $RUBY_VERSION
+                        rvm use $RUBY_VERSION
+                        rvm -v
+                        ruby -v
+                        gem -v
+                        gem install bundler
+                    """)
+                }
             }
         }
         stage('Tests') {
