@@ -11,17 +11,15 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                script {
-                    sh("""
-                        . ~/.rvm/scripts/rvm &> /dev/null
-                        rvm install $RUBY_VERSION
-                        rvm use $RUBY_VERSION
-                        rvm -v
-                        ruby -v
-                        gem -v
-                        gem install bundler
-                    """)
-                }
+                docker.image('docker.io/rhub/r-minimal:latest').inside { 
+                    rvm 'install $RUBY_VERSION'
+                    rvm -v
+                    ruby -v
+                    gem -v
+                    gem install bundler
+                    rvm 'bundle install' 
+                    rvm 'bundle exec rake'
+                } 
             }
         }
         stage('Tests') {
