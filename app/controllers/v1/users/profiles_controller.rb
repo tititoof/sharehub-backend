@@ -22,6 +22,10 @@ module V1
         render json: { error: :recordNotFound }, status: :unprocessable_entity
       end
 
+      def show_avatar
+        redirect_to rails_blob_url(current_user.profile.avatar)
+      end
+
       def list
         @resource = { success: true, payload: ::Users::Profile.all }
 
@@ -34,11 +38,18 @@ module V1
         serializer_response(::Users::ProfileSerializer)
       end
 
+      def upload_avatar
+        @resource = V1::Users::Profiles::UploadAvatarService.call(current_user, profile_params[:avatar])
+
+        serializer_response(::Users::ProfileSerializer)
+      end
+
       private
 
       def profile_params
         params.required(:profile).permit(:address, :date_of_birth, :email, :first_name,
-                                         :last_name, :nickname, :phone, :city_id, :user_id)
+                                         :last_name, :nickname, :phone, :city_id, :user_id,
+                                         :avatar)
       end
     end
   end

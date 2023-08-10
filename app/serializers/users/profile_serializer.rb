@@ -39,5 +39,13 @@ module Users
 
     attributes :id, :address, :date_of_birth, :email, :first_name, :last_name, :nickname, :phone,
                :city_id, :user_id
+    
+    attribute :state_id do |object|
+      object&.city&.state&.id
+    end
+      
+    attribute :country_id do |object|
+      object&.city&.state&.country&.id
+    end
   end
 end

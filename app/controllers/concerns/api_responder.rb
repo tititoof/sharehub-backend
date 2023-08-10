@@ -20,7 +20,7 @@ module ApiResponder
     if @resource[:success]
       render json: @resource[:payload], status: :ok
     else
-      render json: @resource[:error], status: :unprocessable_entity
+      render json: @resource[:errors], status: :unprocessable_entity
     end
   end
 end

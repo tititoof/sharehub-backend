@@ -27,11 +27,11 @@ module V1
         end
 
         def call
-          V1::Users::Profiles::UpdateService.call(@user, @properties) unless @user.profile.nil?
+          payload = V1::Users::Profiles::UpdateService.call(@user, @properties) unless @user.profile.nil?
 
-          V1::Users::Profiles::CreateService.call(@user, @properties) if @user.profile.nil?
+          payload = V1::Users::Profiles::CreateService.call(@user, @properties) if @user.profile.nil?
 
-          { success: true, payload: @user.profile }
+          { success: payload[:success], payload: payload[:payload] }
         rescue ActiveRecord::RecordInvalid => e
           { success: false, errors: e.record.errors.as_json, status: :unprocessable_entity }
         end

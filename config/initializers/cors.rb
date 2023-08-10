@@ -16,10 +16,12 @@
 # end
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:3000'
+    origins 'https://sharehub-frontend.traefik.me'
+
     resource(
       '*',
       headers: :any,
+      credentials: true,
       expose: ['access-token', 'expiry', 'token-type', 'Authorization'],
       methods: [:get, :patch, :put, :delete, :post, :options, :show]
     )

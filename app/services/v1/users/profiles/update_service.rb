@@ -36,8 +36,6 @@ module V1
                                 phone: @properties[:phone], city:)
 
           { success: true, payload: @user.profile }
-        rescue ActiveRecord::RecordInvalid => e
-          { success: false, errors: e.record.errors.as_json, status: :unprocessable_entity }
         end
       end
     end

@@ -38,6 +38,8 @@ module Users
     belongs_to :city, class_name: 'Location::City'
     # User - belongs to
     belongs_to :user, class_name: 'User'
+    # Avatar file
+    has_one_attached :avatar
 
     # ----------------------------------
     # --- Callbacks ---
@@ -67,7 +69,7 @@ module Users
     validates :nickname,
               length: { in: 3..30, too_long: :nicknameTooLong,
                         too_short: :nicknameTooShort }
-    validates :nickname, uniqueness: { case_sensitive: false, message: :notUnique }
+    # validates :nickname, uniqueness: { case_sensitive: false, message: :notUnique }
 
     # Phone
     validates :phone, phone: { possible: true, allow_blank: true }

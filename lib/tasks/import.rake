@@ -12,5 +12,7 @@ namespace :import do
     Rake::Task['location:countries'].invoke
     Rake::Task['location:states'].invoke
     Rake::Task['location:cities'].invoke
+    Rake::Task['location:cleaning'].invoke
+    Rake::Task['application:init'].invoke
   end
 end
