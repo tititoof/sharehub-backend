@@ -14,6 +14,7 @@ pipeline {
                 script {
                     sh("""
                         sudo apt install rvm
+                        
                         . ~/.rvm/scripts/rvm &> /dev/null
                         rvm install $RUBY_VERSION
                         rvm use $RUBY_VERSION
