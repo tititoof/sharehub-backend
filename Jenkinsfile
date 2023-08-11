@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 script {
-                    bash("""
+                    sh("""
                         echo $SHELL
                         curl -sSL https://get.rvm.io | bash
                         . ~/.rvm/scripts/rvm &> /dev/null
