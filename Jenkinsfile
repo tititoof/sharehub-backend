@@ -13,7 +13,7 @@ pipeline {
                 echo 'Building..'
                 script {
                     sh("""
-                        \curl -sSL https://get.rvm.io | bash
+                        curl -sSL https://get.rvm.io | bash
                         . ~/.rvm/scripts/rvm &> /dev/null
                         ~/.rvm/scripts/rvm -v
                         ruby -v
