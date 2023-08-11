@@ -15,6 +15,7 @@ pipeline {
                     sh("""
                         ls ~/.rvm/
                         . ~/.rvm/scripts/rvm &> /dev/null
+                        source "$HOME/.rvm/scripts/rvm"
                         rvm install $RUBY_VERSION
                         rvm use $RUBY_VERSION
                         rvm -v
