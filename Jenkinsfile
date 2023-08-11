@@ -14,7 +14,8 @@ pipeline {
                 script {
                     sh("""
                         echo $SHELL
-                        cat ./.bashrc
+                        cat ~/.bashrc
+                        ls ~/.rvm/scripts/rvm
                         . ~/.rvm/scripts/rvm &> /dev/null
                         rvm install $RUBY_VERSION
                         rvm use $RUBY_VERSION
