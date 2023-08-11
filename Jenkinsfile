@@ -12,8 +12,8 @@ pipeline {
             steps {
                 echo 'Building..'
                 script {
-                    sh("""
-                        zsh
+                    bash("""
+                        echo $SHELL
                         curl -sSL https://get.rvm.io | bash
                         . ~/.rvm/scripts/rvm &> /dev/null
                         ~/.rvm/scripts/rvm -v
