@@ -13,6 +13,7 @@ pipeline {
                 echo 'Building..'
                 script {
                     sh("""
+                        ls ~/.rvm/
                         . ~/.rvm/scripts/rvm &> /dev/null
                         rvm install $RUBY_VERSION
                         rvm use $RUBY_VERSION
