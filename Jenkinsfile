@@ -16,7 +16,7 @@ pipeline {
                         ls ~/.rvm/scripts/
                         . ~/.rvm/scripts/rvm &> /dev/null
                         source "$HOME/.rvm/scripts/rvm"
-                        rvm -v
+                        ~/.rvm/scripts/rvm -v
                         ruby -v
                         gem -v
                         gem install bundler
