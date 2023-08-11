@@ -15,7 +15,6 @@ pipeline {
                     sh("""
                         echo $SHELL
                         . ~/.rvm/scripts/rvm &> /dev/null
-                        find / -name rvm
                         ./.rvm/src/rvm/bin/rvm install $RUBY_VERSION
                         ./.rvm/src/rvm/bin/rvm use $RUBY_VERSION
                         ruby -v
