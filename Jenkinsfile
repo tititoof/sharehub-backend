@@ -16,6 +16,8 @@ pipeline {
                         curl -sSL https://get.rvm.io | bash
                         . ~/.rvm/scripts/rvm &> /dev/null
                         ~/.rvm/scripts/rvm -v
+                        rvm install $RUBY_VERSION
+                        rvm use $RUBY_VERSION
                         ruby -v
                         gem -v
                         gem install bundler
