@@ -15,8 +15,8 @@ pipeline {
                     sh("""
                         echo $SHELL
                         /bin/bash -l -c ". /etc/profile.d/rvm.sh"
-                        ./.rvm/src/rvm/bin/rvm install $RUBY_VERSION
-                        ./.rvm/src/rvm/bin/rvm use $RUBY_VERSION
+                        rvm install $RUBY_VERSION
+                        rvm use $RUBY_VERSION
                         ruby -v
                         gem -v
                         gem install bundler
