@@ -14,12 +14,10 @@ pipeline {
                 script {
                     sh("""
                         echo $SHELL
-                        cat ~/.bashrc
-                        ls ~/.rvm/scripts/rvm
                         . ~/.rvm/scripts/rvm &> /dev/null
+                        ruby -v
                         rvm install $RUBY_VERSION
                         rvm use $RUBY_VERSION
-                        ruby -v
                         gem -v
                         gem install bundler
                     """)
