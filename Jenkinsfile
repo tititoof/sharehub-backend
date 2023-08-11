@@ -16,8 +16,6 @@ pipeline {
                         ls ~/.rvm/scripts/
                         . ~/.rvm/scripts/rvm &> /dev/null
                         source "$HOME/.rvm/scripts/rvm"
-                        $HOME/.rvm/scripts/rvm install $RUBY_VERSION
-                        $HOME/.rvm/scripts/rvm use $RUBY_VERSION
                         rvm -v
                         ruby -v
                         gem -v
