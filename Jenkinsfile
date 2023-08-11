@@ -16,8 +16,8 @@ pipeline {
                         echo $SHELL
                         . ~/.rvm/scripts/rvm &> /dev/null
                         find / -name rvm
-                        rvm install $RUBY_VERSION
-                        rvm use $RUBY_VERSION
+                        ./.rvm/src/rvm/bin/rvm install $RUBY_VERSION
+                        ./.rvm/src/rvm/bin/rvm use $RUBY_VERSION
                         ruby -v
                         gem -v
                         gem install bundler
