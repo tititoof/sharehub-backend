@@ -25,9 +25,9 @@ pipeline {
                         
                         export PATH=$PATH:$HOME/.rvm/scripts:$HOME/.rvm/bin
 
-
+                        cat /etc/ssh/sshd_config
                         
-                        source $HOME/.rvm/scripts/rvm &> /dev/null
+                        . $HOME/.rvm/scripts/rvm &> /dev/null
 
                         rvm -v
                         # Installe la version de Ruby spécifiée
