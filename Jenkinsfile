@@ -27,7 +27,8 @@ pipeline {
                         \$SHELL -l -c ~/.rvm/scripts/rvm &> /dev/null
 
                         zsh
-                        
+
+                        echo \$SHELL
                         # Installe la version de Ruby spécifiée
                         rvm install \$RUBY_VERSION
 
