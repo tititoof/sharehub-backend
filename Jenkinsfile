@@ -21,7 +21,7 @@ pipeline {
                         curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
 
                         # Installe RVM stable avec Ruby
-                        curl -sSL https://get.rvm.io | bash -s -- --version latest --ruby --auto-dotfiles
+                        curl -sSL https://get.rvm.io | bash -s -- --version latest --ruby-3.2.2 --auto-dotfiles
                         echo "source $HOME/.rvm/scripts/rvm" >> ~/.bash_profile
                     """
                     sh """
