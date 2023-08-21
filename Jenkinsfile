@@ -30,7 +30,7 @@ pipeline {
                     """
 
                     sh '''
-                        ll ~/.bashrc
+                        ls -al ~/.bashrc
                         ~/.bashrc
                         \$SHELL -l -c ~/.rvm/scripts/rvm &> /dev/null
                         
