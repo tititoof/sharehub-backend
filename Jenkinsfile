@@ -27,7 +27,8 @@ pipeline {
                         
                         rvm -v
 
-                        . \$HOME/.bashrc
+                        . \$HOME/.bashrc &> /dev/null
+                        . \$HOME/.rvm/scripts/rvm &> /dev/null
 
                         # Installe la version de Ruby spécifiée
                         rvm install \$RUBY_VERSION
