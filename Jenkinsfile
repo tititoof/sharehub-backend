@@ -24,7 +24,7 @@ pipeline {
                         curl -sSL https://get.rvm.io | bash -s stable --ruby --auto-dotfiles
 
                         # Charge RVM dans le shell actuel
-                        source ~/.rvm/scripts/rvm &> /dev/null
+                        \$SHELL -l -c ~/.rvm/scripts/rvm &> /dev/null
 
                         # Installe la version de Ruby spécifiée
                         rvm install \$RUBY_VERSION
