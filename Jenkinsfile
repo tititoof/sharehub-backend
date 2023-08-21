@@ -12,18 +12,35 @@ pipeline {
             steps {
                 echo 'Building..'
                 script {
-                    sh("""
-                        echo $SHELL
+                    sh """
+                        # Affiche le shell actuel
+                        echo \$SHELL
+
+                        # Importe les clés GPG pour RVM
                         curl -sSL https://rvm.io/mpapis.asc | gpg --import -
                         curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
+
+                        # Installe RVM stable avec Ruby
                         curl -sSL https://get.rvm.io | bash -s stable --ruby --auto-dotfiles
-                        $SHELL -l -c ~/.rvm/scripts/rvm &> /dev/null
-                        rvm install $RUBY_VERSION
-                        rvm use $RUBY_VERSION
+
+                        # Charge RVM dans le shell actuel
+                        source ~/.rvm/scripts/rvm &> /dev/null
+
+                        # Installe la version de Ruby spécifiée
+                        rvm install \$RUBY_VERSION
+
+                        # Utilise la version de Ruby installée
+                        rvm use \$RUBY_VERSION
+
+                        # Affiche la version de Ruby
                         ruby -v
+
+                        # Affiche la version de Gem
                         gem -v
+
+                        # Installe Bundler
                         gem install bundler
-                    """)
+                    """
                 }
             }
         }
