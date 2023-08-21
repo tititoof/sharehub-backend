@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 script {
-                    sh '''
+                    sh """
                         # Affiche le shell actuel
                         echo \$SHELL
 
@@ -42,7 +42,7 @@ pipeline {
 
                         # Installe Bundler
                         gem install bundler
-                    '''
+                    """
                 }
             }
         }
