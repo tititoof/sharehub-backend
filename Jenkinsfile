@@ -31,7 +31,7 @@ pipeline {
 
                     sh '''
                         ls -al ~/.bashrc
-                        ~/.bashrc
+                        cat ~/.bashrc
                         \$SHELL -l -c ~/.rvm/scripts/rvm &> /dev/null
                         
                         # Installe la version de Ruby spécifiée
