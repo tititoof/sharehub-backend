@@ -17,11 +17,10 @@ pipeline {
                         curl -sSL https://rvm.io/mpapis.asc | gpg --import -
                         curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
                         curl -sSL https://get.rvm.io | bash -s stable --ruby --auto-dotfiles
-                        . ~/.rvm/scripts/rvm &> /dev/null
-                        zsh
-                        ruby -v
+                        $SHELL -l -c ~/.rvm/scripts/rvm &> /dev/null
                         rvm install $RUBY_VERSION
                         rvm use $RUBY_VERSION
+                        ruby -v
                         gem -v
                         gem install bundler
                     """)
