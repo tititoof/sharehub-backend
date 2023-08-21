@@ -32,7 +32,7 @@ pipeline {
                         export PATH=$PATH:$HOME/.rvm/bin
                         ls -al /bin/bash
                         
-                        \$SHELL -l -c ~/.rvm/scripts/rvm &> /dev/null
+                        rvm -v
                         
                         # Installe la version de Ruby spécifiée
                         #rvm install \$RUBY_VERSION
