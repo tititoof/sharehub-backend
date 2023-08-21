@@ -30,7 +30,7 @@ pipeline {
                     """
 
                     sh """
-                        \$SHELL -l -c ~/.rvm/scripts/rvm &> /dev/null
+                        /bin/bash -l -c ~/.rvm/scripts/rvm &> /dev/null
                         # Installe la version de Ruby spécifiée
                         rvm install \$RUBY_VERSION
 
