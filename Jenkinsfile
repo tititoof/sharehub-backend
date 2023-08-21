@@ -29,6 +29,7 @@ pipeline {
                     """
 
                     sh '''
+                        export PATH=$PATH:$HOME/.rvm/bin
                         echo $PATH
                         
                         \$SHELL -l -c ~/.rvm/scripts/rvm &> /dev/null
