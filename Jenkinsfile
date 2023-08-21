@@ -23,9 +23,11 @@ pipeline {
                         # Installe RVM stable avec Ruby
                         curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles --ruby=\$RUBY_VERSION
                         
-                        export PATH=$PATH:$HOME/.rvm/scripts:$HOME/.rvm/bin
+                        export PATH=$PATH:\$HOME/.rvm/scripts:\$HOME/.rvm/bin
                         
                         rvm -v
+
+                        ls \$HOME/.rvm/scripts
 
                         # Installe la version de Ruby spécifiée
                         rvm install \$RUBY_VERSION
