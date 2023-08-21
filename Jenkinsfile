@@ -19,7 +19,6 @@ pipeline {
                         curl -sSL https://get.rvm.io | bash -s stable --ruby --auto-dotfiles
                         . ~/.rvm/scripts/rvm &> /dev/null
                         zsh
-                        source /home/jenkins/.rvm/scripts/rvm
                         ruby -v
                         rvm install $RUBY_VERSION
                         rvm use $RUBY_VERSION
