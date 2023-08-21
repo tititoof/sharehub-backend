@@ -14,6 +14,7 @@ pipeline {
                 script {
                     sh("""
                         echo $SHELL
+                        zsh
                         . ~/.rvm/scripts/rvm &> /dev/null
                         type rvm | head -n 1
                         ruby -v
