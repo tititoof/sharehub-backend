@@ -27,7 +27,6 @@ pipeline {
                         # Utilise la version de Ruby installée
                         rvm use $RUBY_VERSION
                         
-
                         # Affiche la version de Ruby
                         ruby -v
 
@@ -46,8 +45,11 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'sharehub-backend-credentials-ci-cd', variable: 'TEST_CREDENTIALS')]) {
                         sh """
+                            export PATH=$PATH:$HOME/.rvm/scripts:$HOME/.rvm/bin:$HOME/.rvm/rubies/$RUBY_VERSION/bin
                             export RAILS_ENV=test
-                            . ~/.rvm/scripts/rvm &> /dev/null
+                            
+                            . $HOME/.rvm/scripts/rvm &> /dev/null
+                            
                             rvm use $RUBY_VERSION
                             gem cleanup
                             gem update bundler
