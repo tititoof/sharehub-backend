@@ -14,19 +14,10 @@ pipeline {
                 script {
                     sh """
                         # Affiche le shell actuel
-                        echo \$SHELL
+                        echo $SHELL
 
-                        # Importe les clés GPG pour RVM
-                        curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-                        curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
+                        export PATH=$PATH:$HOME/.rvm/scripts:$HOME/.rvm/bin:$HOME/.rvm/rubies/$RUBY_VERSION/bin
 
-                        # Installe RVM stable avec Ruby
-                        curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles --ruby=$RUBY_VERSION
-                        
-                        export PATH=$PATH:$HOME/.rvm/scripts:$HOME/.rvm/bin
-
-                        cat /etc/ssh/sshd_config
-                        
                         . $HOME/.rvm/scripts/rvm &> /dev/null
 
                         rvm -v
@@ -36,6 +27,7 @@ pipeline {
                         # Utilise la version de Ruby installée
                         rvm use $RUBY_VERSION
                         
+
                         # Affiche la version de Ruby
                         ruby -v
 
