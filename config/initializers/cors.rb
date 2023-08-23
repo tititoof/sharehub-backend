@@ -16,7 +16,7 @@
 # end
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'https://sharehub-frontend.traefik.me'
+    origins <%= Rails.application.credentials.origins %>
 
     resource(
       '*',
