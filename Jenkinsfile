@@ -108,7 +108,7 @@ pipeline {
         stage("Quality Gate") {
             steps {
                 script {
-                    withSonarQubeEnv("sonarqube") {
+                    withSonarQubeEnv() {
                         sleep(20)
                         def qualitygate = waitForQualityGate()
                         if (qualitygate.status != "OK") {
