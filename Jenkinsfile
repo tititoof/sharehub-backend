@@ -87,7 +87,7 @@ pipeline {
                     def scannerHome = tool 'sonarqube-scanner';
                     def sonarqubeBranch = 'sharehub-backend-dev';
                     withCredentials([string(credentialsId: 'sonarqube-server', variable: 'SONAR_URL'),
-                        string(credentialsId: 'sharehub-backend-credentials-ci-cd', variable: 'SONAR_CREDENTIALS')]) {
+                        string(credentialsId: 'sonarqube-token', variable: 'SONAR_CREDENTIALS')]) {
                         withSonarQubeEnv() {
                             if (env.BRANCH_NAME == 'main') {
                                 sonarqubeBranch = 'sharehub-backend'
