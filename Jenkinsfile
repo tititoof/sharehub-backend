@@ -62,7 +62,7 @@ pipeline {
                             RAILS_ENV=ci-cd bundle exec rake db:create
                             RAILS_ENV=ci-cd bundle exec rake db:migrate
                             RAILS_ENV=ci-cd bundle exec rspec spec/
-                            ruby -rjson -e 'sqube = JSON.load(File.read("coverage/.resultset.json"))["RSpec"]["coverage"].transform_values {|lines| lines["lines"]}; total = { "RSpec" => { "coverage" => sqube, "timestamp" => Time.now.to_i }}; puts JSON.dump(total)' > coverage/.resultset.solarqube.json
+                            ruby -rjson -e 'sqube = JSON.load(File.read("coverage/.resultset.json"))["RSpec"]["coverage"].transform_values {|lines| lines["lines"]}; total = { "RSpec" => { "coverage" => sqube, "timestamp" => Time.now.to_i }}; puts JSON.dump(total)' > coverage/.resultset.sonarqube.json
                         """
                         try {
                             sh """
@@ -97,7 +97,7 @@ pipeline {
                                     -Dsonar.sources='app' \
                                     -Dsonar.exclusions=app/assets/**/* \
                                     -Dsonar.host.url=$SONAR_URL \
-                                    -Dsonar.ruby.coverage.reportPaths=coverage/.resultset.solarqube.json \
+                                    -Dsonar.ruby.coverage.reportPaths=coverage/.resultset.sonarqube.json \
                                     -Dsonar.ruby.rubocop.reportPaths=out/rubocop-result.json \
                                     -Dsonar.login=$SONAR_CREDENTIALS"""
                         }
