@@ -88,7 +88,7 @@ pipeline {
                     def sonarqubeBranch = 'sharehub-backend-dev';
                     withCredentials([string(credentialsId: 'sonarqube-server', variable: 'SONAR_URL'),
                         string(credentialsId: 'sharehub-backend-credentials-ci-cd', variable: 'SONAR_CREDENTIALS')]) {
-                        withSonarQubeEnv("sonarqube") {
+                        withSonarQubeEnv() {
                             if (env.BRANCH_NAME == 'main') {
                                 sonarqubeBranch = 'sharehub-backend'
                             }
