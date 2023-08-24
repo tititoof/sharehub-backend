@@ -27,7 +27,7 @@ RSpec.describe "V1::Users::Profiles", type: :request do
 
         expect(json['data']).to have_jsonapi_attributes(:id, :address, :dateOfBirth, :email, 
                                                         :firstName, :lastName, :nickname, :phone, 
-                                                        :cityId, :userId).exactly
+                                                        :cityId, :stateId, :countryId, :userId).exactly
       end
     end
 
@@ -64,7 +64,7 @@ RSpec.describe "V1::Users::Profiles", type: :request do
 
         expect(json['data']).to have_jsonapi_attributes(:id, :address, :dateOfBirth, :email, 
                                                         :firstName, :lastName, :nickname, :phone, 
-                                                        :cityId, :userId).exactly
+                                                        :cityId, :stateId, :countryId, :userId).exactly
       end
     end
 
@@ -101,7 +101,7 @@ RSpec.describe "V1::Users::Profiles", type: :request do
 
         expect(json['data'][0]).to have_jsonapi_attributes(:id, :address, :dateOfBirth, :email, 
                                                            :firstName, :lastName, :nickname, :phone, 
-                                                           :cityId, :userId).exactly
+                                                           :cityId, :stateId, :countryId, :userId).exactly
       end
     end
 
@@ -148,7 +148,7 @@ RSpec.describe "V1::Users::Profiles", type: :request do
 
         expect(json['data']).to have_jsonapi_attributes(:id, :address, :dateOfBirth, :email, 
                                                            :firstName, :lastName, :nickname, :phone, 
-                                                           :cityId, :userId).exactly
+                                                           :cityId, :stateId, :countryId, :userId).exactly
       end
     end
 
@@ -196,7 +196,7 @@ RSpec.describe "V1::Users::Profiles", type: :request do
 
         expect(json['data']).to have_jsonapi_attributes(:id, :address, :dateOfBirth, :email, 
                                                         :firstName, :lastName, :nickname, :phone, 
-                                                        :cityId, :userId).exactly
+                                                        :cityId, :stateId, :countryId, :userId).exactly
       end
     end
 

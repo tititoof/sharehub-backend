@@ -22,7 +22,7 @@ gem 'acts-as-taggable-on', '~> 9.0'
 gem 'annotate'
 
 # CORS
-gem 'rack-cors'
+# gem 'rack-cors'
 
 # Authenticate
 gem 'devise'

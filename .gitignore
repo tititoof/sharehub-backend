@@ -35,3 +35,5 @@
 /config/credentials/test.key
 
 /config/credentials/ci-cd.key
+
+/config/credentials/devepment.key
