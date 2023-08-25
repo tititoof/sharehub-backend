@@ -25,6 +25,5 @@ module Backend
     config.api_only = true
 
     config.hosts << "sharehub-backend.traefik.me"
-    config.hosts << "www.example.com"
   end
 end
