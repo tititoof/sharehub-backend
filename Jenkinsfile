@@ -123,6 +123,7 @@ pipeline {
             steps {
                 script {
                     def giteaBranch = env.BRANCH_NAME;
+
                     if (env.BRANCH_NAME.startsWith('PR')) {
                         echo "PR branch"
                     } else {
