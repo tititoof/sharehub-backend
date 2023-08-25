@@ -1,0 +1,6 @@
+projectKey=sharehub-backend
+serverUrl=http://sonarqube:9000
+serverVersion=9.9.1.69595
+dashboardUrl=http://sonarqube:9000/dashboard?id=sharehub-backend
+ceTaskId=AYor82QT2d6GMJbLPreT
+ceTaskUrl=http://sonarqube:9000/api/ce/task?id=AYor82QT2d6GMJbLPreT
