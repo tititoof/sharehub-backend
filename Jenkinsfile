@@ -55,7 +55,7 @@ pipeline {
                             gem update bundler
                             bundle install
                             echo "$TEST_CREDENTIALS" > config/credentials/ci-cd.key
-                            gem install mailcatcher -v 0.9.0.beta2
+                            gem install mailcatcher -v 0.9.1.beta2
                             gem install shoulda-matchers
                             mailcatcher
                             rm -Rf ./coverage
