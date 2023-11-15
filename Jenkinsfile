@@ -46,7 +46,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'sharehub-backend-credentials-ci-cd', variable: 'TEST_CREDENTIALS')]) {
                         sh """
                             export PATH=$PATH:$HOME/.rvm/scripts:$HOME/.rvm/bin:$HOME/.rvm/rubies/$RUBY_VERSION/bin
-                            export RAILS_ENV=test
+                            export RAILS_ENV=ci-cd
                             
                             . $HOME/.rvm/scripts/rvm &> /dev/null
                             
@@ -57,9 +57,9 @@ pipeline {
                             echo "$TEST_CREDENTIALS" > config/credentials/ci-cd.key
                             gem install shoulda-matchers
                             rm -Rf ./coverage
-                            RAILS_ENV=test bundle exec rake db:create
-                            RAILS_ENV=test bundle exec rake db:migrate
-                            RAILS_ENV=test bundle exec rspec spec/
+                            RAILS_ENV=ci-cd bundle exec rake db:create
+                            RAILS_ENV=ci-cd bundle exec rake db:migrate
+                            RAILS_ENV=ci-cd bundle exec rspec spec/
                             ruby -rjson -e 'sqube = JSON.load(File.read("coverage/.resultset.json"))["RSpec"]["coverage"].transform_values {|lines| lines["lines"]}; total = { "RSpec" => { "coverage" => sqube, "timestamp" => Time.now.to_i }}; puts JSON.dump(total)' > coverage/.resultset.sonarqube.json
                         """
                         try {
