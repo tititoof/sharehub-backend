@@ -55,9 +55,7 @@ pipeline {
                             gem update bundler
                             bundle install
                             echo "$TEST_CREDENTIALS" > config/credentials/ci-cd.key
-                            gem install mailcatcher -v 0.9.1.beta2
                             gem install shoulda-matchers
-                            mailcatcher
                             rm -Rf ./coverage
                             RAILS_ENV=ci-cd bundle exec rake db:create
                             RAILS_ENV=ci-cd bundle exec rake db:migrate
