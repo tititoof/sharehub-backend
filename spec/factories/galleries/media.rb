@@ -18,7 +18,7 @@
 #
 FactoryBot.define do
   factory :galleries_medium, class: 'Galleries::Medium' do
-    kind { ::Galleries::Medium::kind_options.keys.sample }
+    kind { 'image' }
     album { FactoryBot.create(:galleries_album) }
   end
 end

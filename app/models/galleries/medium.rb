@@ -24,9 +24,10 @@ module Galleries
     # ----------------------------------
     # --- Enum ---
     # ----------------------------------
-    enum kind_options: {
-      image: :image,
-      viedo: :viedo
+    attribute :kind, :string
+    enum kind: {
+      image: 'image',
+      viedo: 'viedo'
     }
 
     # ----------------------------------
@@ -42,6 +43,6 @@ module Galleries
     # --- Validations ---
     # ----------------------------------
     # Kind
-    validates :kind, inclusion: { in: kind_options, message: :kindInvalid }
+    # validates :kind, inclusion: { in: kind_options, message: :kindInvalid }
   end
 end

@@ -47,5 +47,13 @@ module Users
     attribute :country_id do |object|
       object&.city&.state&.country&.id
     end
+
+    attribute :avatar_url do |object|
+      if object.avatar.attached?
+        Rails.application.routes.url_helpers.url_for(controller: '/v1/users/profiles',
+                                                     action: :show_avatar,
+                                                     only_path: true)
+      end
+    end
   end
 end

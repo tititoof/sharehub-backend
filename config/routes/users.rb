@@ -3,9 +3,9 @@ namespace :users do
   # /profiles
   get   '/profiles',               to: 'profiles#index'
   get   '/profiles/list',          to: 'profiles#list'
+  get   '/profiles/show-avatar',   to: 'profiles#show_avatar'
   get   '/profiles/:profile_id',   to: 'profiles#show'
   post  '/profiles',               to: 'profiles#save'
-  get   '/profiles/show-avatar',   to: 'profiles#show_avatar'
   post  '/profiles/upload-avatar', to: 'profiles#upload_avatar'
 
   # /groups

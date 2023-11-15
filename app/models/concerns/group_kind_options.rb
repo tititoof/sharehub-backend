@@ -5,9 +5,10 @@ module GroupKindOptions
   extend ActiveSupport::Concern
 
   included do
-    enum kind_options: {
-      organization: :organization,
-      user: :user
-    }
+    attribute :kind, :string
+    enum :kind, {
+      organization: 'organization',
+      user: 'user'
+    }, validate: true
   end
 end

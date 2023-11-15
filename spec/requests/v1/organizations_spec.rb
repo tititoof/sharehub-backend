@@ -135,13 +135,13 @@ RSpec.describe "V1::Organizations", type: :request do
         post "#{organizations_url}", params: {
           organization: { 
             activity_description: Faker::Books::Lovecraft.paragraph,
-            activity_sector: Organization::activity_sector_options.keys.sample,
+            activity_sector: 'agriculture_forestry',
             address: Faker::Address.full_address,
             annual_turnover: rand(100.0..5000.0),
             borned_at: Faker::Date.between(from: '2014-09-23', to: '2014-09-25'),
             email_address: Faker::Internet.email,
-            kind: Organization::kind_options.keys.sample,
-            legal_status: Organization::legal_status_options.keys.sample,
+            kind: 'sole_trader',
+            legal_status: 'entreprise',
             name: Faker::Company.name,
             number_of_employees: rand(1..500),
             phone_number: Faker::PhoneNumber.phone_number_with_country_code,
@@ -209,13 +209,13 @@ RSpec.describe "V1::Organizations", type: :request do
         put "#{organizations_url}/#{organization.id}", params: {
           organization: { 
             activity_description: Faker::Books::Lovecraft.paragraph,
-            activity_sector: Organization::activity_sector_options.keys.sample,
+            activity_sector: 'agriculture_forestry',
             address: Faker::Address.full_address,
             annual_turnover: rand(100.0..5000.0),
             borned_at: Faker::Date.between(from: '2014-09-23', to: '2014-09-25'),
             email_address: Faker::Internet.email,
-            kind: Organization::kind_options.keys.sample,
-            legal_status: Organization::legal_status_options.keys.sample,
+            kind: 'sole_trader',
+            legal_status: 'entreprise',
             name: Faker::Company.name,
             number_of_employees: rand(1..500),
             phone_number: Faker::PhoneNumber.phone_number_with_country_code,

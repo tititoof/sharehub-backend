@@ -67,8 +67,8 @@ module Users
               length: { in: 30..700, too_long: :tooLong,
                         too_short: :tooShort }
 
-    # Kind
-    validates :kind, inclusion: { in: kind_options, message: :groupKindInvalid }
+    # # Kind
+    # validates :kind, inclusion: { in: kind_options, message: :groupKindInvalid }
 
     # Name
     validates :name, presence: { message: :required }

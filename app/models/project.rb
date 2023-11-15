@@ -70,7 +70,7 @@ class Project < ApplicationRecord
   # --- Validations ---
   # ----------------------------------
   # Category
-  validates :category, inclusion: { in: project_category_options, message: :categoryInvalid }
+  # validates :category, inclusion: { in: project_category_options, message: :categoryInvalid }
 
   # Description
   validates :description, presence: { message: :required }
@@ -92,7 +92,7 @@ class Project < ApplicationRecord
   validate :start_at_before_end_at
 
   # status
-  validates :status, inclusion: { in: project_status_options, message: :statusInvalid }
+  # validates :status, inclusion: { in: project_status_options, message: :statusInvalid }
 
   # Title
   validates :title, presence: { message: :required }

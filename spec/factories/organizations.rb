@@ -39,17 +39,17 @@
 FactoryBot.define do
   factory :organization do
     name { Faker::Company.name }
-    kind { Organization::kind_options.keys.sample }
+    kind { 'sole_trader' }
     borned_at { Faker::Date.between(from: '2014-09-23', to: '2014-09-25') }
     address { Faker::Address.full_address }
     phone_number { Faker::PhoneNumber.phone_number_with_country_code }
     email_address { Faker::Internet.email }
     website { Faker::Internet.url }
     activity_description { Faker::Books::Lovecraft.paragraph }
-    activity_sector { Organization::activity_sector_options.keys.sample }
+    activity_sector { 'agriculture_forestry' }
     annual_turnover { rand(100.0..5000.0) }
     number_of_employees { rand(1..500) }
-    legal_status { Organization::legal_status_options.keys.sample }
+    legal_status { 'entreprise' }
     registration_number { Faker::Bank.account_number }
     region { "MyString" }
     country { FactoryBot.create(:location_country) }

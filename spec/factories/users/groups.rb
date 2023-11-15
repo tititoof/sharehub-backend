@@ -26,7 +26,7 @@ FactoryBot.define do
   factory :users_group, class: 'Users::Group' do
     name { Faker::FunnyName.name }
     description { Faker::Books::Lovecraft.paragraph }
-    kind { Users::Group::kind_options.keys.sample }
+    kind { 'organization' }
     admin { FactoryBot.create(:user) }
     organization { FactoryBot.create(:organization) }
   end

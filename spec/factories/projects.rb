@@ -32,10 +32,10 @@ FactoryBot.define do
     description { Faker::Books::Lovecraft.paragraph }
     start_at { Faker::Date.between(from: '2014-09-23', to: '2014-09-25') }
     end_at { Faker::Date.between(from: '2014-10-23', to: '2014-10-25') }
-    status { Project::project_status_options.keys.sample }
+    status { 'planning' }
     manager { FactoryBot.create(:user) }
     external_references { "MyString" }
-    category { Project::project_category_options.keys.sample }
+    category { 'software_development' }
     organization { FactoryBot.create(:organization) }
   end
 end

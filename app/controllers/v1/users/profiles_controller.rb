@@ -23,7 +23,7 @@ module V1
       end
 
       def show_avatar
-        redirect_to rails_blob_url(current_user.profile.avatar)
+        redirect_to rails_blob_url(current_user.profile.avatar) if current_user.profile.avatar.attached?
       end
 
       def list

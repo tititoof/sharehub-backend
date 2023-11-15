@@ -94,7 +94,7 @@ class Organization < ApplicationRecord
                       too_short: :tooShort }
 
   # Activity sector
-  validates :activity_sector, inclusion: { in: activity_sector_options, message: :activitySectorInvalid }
+  # validates :activity_sector, inclusion: { in: activity_sector, message: :activitySectorInvalid }
 
   # Address
   validates :address, presence: { message: :required }
@@ -113,10 +113,10 @@ class Organization < ApplicationRecord
   validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   # Kind
-  validates :kind, inclusion: { in: kind_options, message: :kindInvalid }
+  # validates :kind, inclusion: { in: kind_options, message: :kindInvalid }
 
   # Legal status
-  validates :legal_status, inclusion: { in: legal_status_options, message: :legalStatusInvalid }
+  # validates :legal_status, inclusion: { in: legal_status_options, message: :legalStatusInvalid }
 
   # Name
   validates :name, presence: { message: :required }

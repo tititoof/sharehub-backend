@@ -101,7 +101,7 @@ RSpec.describe "V1::Users::Groups", type: :request do
           group: { 
             name: Faker::FunnyName.name,
             description: Faker::Books::Lovecraft.paragraph,
-            kind: Users::Group::kind_options.keys.sample,
+            kind: 'organization',
             admin_id: admin.id,
             organization_id: organization.id
           } }, headers: {
@@ -159,7 +159,7 @@ RSpec.describe "V1::Users::Groups", type: :request do
           group: { 
             name: Faker::FunnyName.name,
             description: Faker::Books::Lovecraft.paragraph,
-            kind: Users::Group::kind_options.keys.sample,
+            kind: 'organization',
             admin_id: admin.id,
             organization_id: group.organization.id
           } }, headers: {
