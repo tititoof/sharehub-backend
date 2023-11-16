@@ -90,12 +90,14 @@ pipeline {
                                 if (env.BRANCH_NAME == 'main') {
                                     sonarqubeBranch = 'sharehub-backend'
                                 }
+                                echo "${SONAR_URL}"
+                                echo "${SONAR_CREDENTIALS}"
                                 sh "${scannerHome}/bin/sonar-scanner \
                                         -Dsonar.projectKey=$sonarqubeBranch \
                                         -Dsonar.sources='app' \
                                         -Dsonar.exclusions=app/assets/**/* \
-                                        -Dsonar.host.url=${SONAR_URL} \
-                                        -Dsonar.login=${SONAR_CREDENTIALS} \
+                                        -Dsonar.host.url=$SONAR_URL \
+                                        -Dsonar.login=$SONAR_CREDENTIALS \
                                         -Dsonar.ruby.coverage.reportPaths=coverage/.resultset.sonarqube.json \
                                         -Dsonar.ruby.rubocop.reportPaths=out/rubocop-result.json"
                             }
