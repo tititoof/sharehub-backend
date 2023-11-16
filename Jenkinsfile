@@ -84,20 +84,21 @@ pipeline {
                 script {
                     def scannerHome = tool 'sonarqube-scanner';
                     def sonarqubeBranch = 'sharehub-backend-dev';
-                    withCredentials([string(credentialsId: 'sonarqube-server', variable: 'SONAR_URL'),
-                        string(credentialsId: 'sonarqube-token', variable: 'SONAR_CREDENTIALS')]) {
-                        withSonarQubeEnv() {
-                            if (env.BRANCH_NAME == 'main') {
-                                sonarqubeBranch = 'sharehub-backend'
+                    withCredentials([string(credentialsId: 'sonarqube-server', variable: 'SONAR_URL')]) {
+                        withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_CREDENTIALS')]) {
+                            withSonarQubeEnv() {
+                                if (env.BRANCH_NAME == 'main') {
+                                    sonarqubeBranch = 'sharehub-backend'
+                                }
+                                sh "${scannerHome}/bin/sonar-scanner \
+                                        -Dsonar.projectKey=$sonarqubeBranch \
+                                        -Dsonar.sources='app' \
+                                        -Dsonar.exclusions=app/assets/**/* \
+                                        -Dsonar.host.url=${SONAR_URL} \
+                                        -Dsonar.login=${SONAR_CREDENTIALS} \
+                                        -Dsonar.ruby.coverage.reportPaths=coverage/.resultset.sonarqube.json \
+                                        -Dsonar.ruby.rubocop.reportPaths=out/rubocop-result.json"
                             }
-                            sh "${scannerHome}/bin/sonar-scanner \
-                                    -Dsonar.projectKey=$sonarqubeBranch \
-                                    -Dsonar.sources='app' \
-                                    -Dsonar.exclusions=app/assets/**/* \
-                                    -Dsonar.host.url=${SONAR_URL} \
-                                    -Dsonar.ruby.coverage.reportPaths=coverage/.resultset.sonarqube.json \
-                                    -Dsonar.ruby.rubocop.reportPaths=out/rubocop-result.json \
-                                    -Dsonar.login=${SONAR_CREDENTIALS}"
                         }
                     }
                 }
