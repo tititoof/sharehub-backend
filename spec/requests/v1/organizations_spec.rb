@@ -30,7 +30,7 @@ RSpec.describe "V1::Organizations", type: :request do
                                                            :bornedAt, :emailAddress, :kind, 
                                                            :legalStatus, :name, :numberOfEmployees,
                                                            :phoneNumber, :registrationNumber, :website, 
-                                                           :cityId, :countryId).exactly
+                                                           :cityId, :countryId, :stateId).exactly
       end
     end
 
@@ -85,7 +85,7 @@ RSpec.describe "V1::Organizations", type: :request do
                                                            :bornedAt, :emailAddress, :kind, 
                                                            :legalStatus, :name, :numberOfEmployees,
                                                            :phoneNumber, :registrationNumber, :website, 
-                                                           :cityId, :countryId).exactly
+                                                           :cityId, :countryId, :stateId).exactly
       end
     end
 
@@ -158,7 +158,7 @@ RSpec.describe "V1::Organizations", type: :request do
                                                            :bornedAt, :emailAddress, :kind, 
                                                            :legalStatus, :name, :numberOfEmployees,
                                                            :phoneNumber, :registrationNumber, :website, 
-                                                           :cityId, :countryId).exactly
+                                                           :cityId, :countryId, :stateId).exactly
       end
     end
 
@@ -233,7 +233,7 @@ RSpec.describe "V1::Organizations", type: :request do
                                                         :bornedAt, :emailAddress, :kind, 
                                                         :legalStatus, :name, :numberOfEmployees,
                                                         :phoneNumber, :registrationNumber, :website, 
-                                                        :cityId, :countryId).exactly
+                                                        :cityId, :countryId, :stateId).exactly
       end
     end
 
@@ -359,7 +359,7 @@ RSpec.describe "V1::Organizations", type: :request do
                                                         :bornedAt, :emailAddress, :kind, 
                                                         :legalStatus, :name, :numberOfEmployees,
                                                         :phoneNumber, :registrationNumber, :website, 
-                                                        :cityId, :countryId).exactly
+                                                        :cityId, :countryId, :stateId).exactly
       end
     end
 
@@ -415,7 +415,7 @@ RSpec.describe "V1::Organizations", type: :request do
                                                         :bornedAt, :emailAddress, :kind, 
                                                         :legalStatus, :name, :numberOfEmployees,
                                                         :phoneNumber, :registrationNumber, :website, 
-                                                        :cityId, :countryId).exactly
+                                                        :cityId, :countryId, :stateId).exactly
       end
     end
 
