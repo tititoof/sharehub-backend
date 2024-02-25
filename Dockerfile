@@ -32,7 +32,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
     libpq-dev \
     postgresql-client \
     libvips \
-    curl
+    curl \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 ENV LANG=C.UTF-8 \
   BUNDLE_JOBS=4 \

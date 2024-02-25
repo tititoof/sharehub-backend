@@ -50,4 +50,8 @@ class OrganizationSerializer
   attributes :id, :activity_description, :activity_sector, :address, :annual_turnover,
              :borned_at, :email_address, :kind, :legal_status, :name, :number_of_employees,
              :phone_number, :registration_number, :website, :city_id, :country_id
+
+  attribute :state_id do |object|
+    object&.city&.state&.id
+  end
 end

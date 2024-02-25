@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "SonarQube Traefik",
+        "projectKey": "sharehub-backend-dev"
+    }
+}
